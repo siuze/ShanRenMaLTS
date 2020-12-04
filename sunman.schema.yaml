@@ -1,0 +1,166 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: sunman
+  name: 山人全息码
+  version: "2016.08.25"
+  author:
+    - 发明人 谢振斌
+    - 方案制作 疏影孤桐
+  description:
+    山人全息码
+    通过【袖珍简化字拼音】实现 ` 键拼音反查
+    简入繁出 需要安装 opencc 简繁转换词典
+  dependencies:
+    - pinyin_simp
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: zhs_zht
+    states: [ 简体, 繁體 ]
+  # - name: extended_charset
+    # states: [ 通用, 增廣 ]
+  - name: ascii_punct
+    states: [ ，。, ，． ]
+  - options: [ utf8, gbk, gb2312, big5 ]
+    states:	  
+    - UTF-8
+    - GBK
+    - GB2312
+    - BIG5
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - affix_segmentor@pinyin
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator@custom_phrase
+    - table_translator
+    - script_translator@pinyin
+  filters:
+    - simplifier
+    - uniquifier
+    - charset_filter@utf8
+    - charset_filter@gbk
+    - charset_filter@gb2312
+    - charset_filter@big5
+    - reverse_lookup_filter@reverse_lookup
+
+speller:
+  alphabet: abcdefghijklmnopqrstuvwxyz
+  delimiter: " '"
+  algebra:
+    - "fuzz/^(\\w)(\\w).+$/$1$2/"
+    - "fuzz/^(\\w)(\\w)(\\w).+$/$1$2$3/"
+    - "fuzz/^(\\w)(\\w)(\\w)(\\w).+$/$1$2$3$4/"
+  delimiter: " '"
+  # max_code_length: 4
+  # auto_select: true
+  # auto_select_unique_candidate: false
+  # auto_clear: auto
+
+translator:
+  dictionary: &dict
+    sunman
+
+  enable_completion: true
+  enable_charset_filter: false
+  enable_user_dict: true
+  enable_sentence: true
+  enable_encoder: true 
+  encode_commit_history: true
+  max_phrase_length: 10 
+  initial_quality: 0.75
+
+custom_phrase:
+  dictionary: ""
+  user_dict: sunman_custom_phrase
+  db_class: stabledb
+  enable_sentence: false
+  initial_quality: 1
+
+#abc_segmentor:
+#  extra_tags:
+#    - pinyin
+
+simplifier:
+  opencc_config: s2t.json
+  option_name: zhs_zht
+  tags: [ zhs_zht ]
+  tips: all
+
+pinyin:
+  tag: pinyin
+  dictionary: pinyin_simp
+  prefix: "`"
+  suffix: ";"
+  tips: 〔拼音〕
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+  closing_tips: 〔山人〕
+  initial_quality: 0.2
+
+reverse_lookup:
+  tags: [ pinyin ]
+  dictionary: *dict
+  overwrite_comment: false
+
+punctuator:
+  # import_preset: symbols
+  import_preset: symbols
+
+recognizer:
+  import_preset: default
+  patterns 
+    punct: "^/[0-9]*[a-z]*$"
+    # punct: "^\$([A-Z|a-z]*|[0-9]|10)$""^\\\\([A-Z|a-z]*|[0-9]|10)$"
+    pinyin: "`[a-z']*;?$"  
+
+key_binder:
+  import_preset: default
+  bindings:
+    - { when: composing, accept: Return, send: encode }
+    - { when: always, accept: "Control+Shift+dollar", toggle: zhs_zht }
+    - { when: always, accept: "Control+Shift+percent", toggle: encode }
+    - { when: has_menu, accept: comma, send: comma }
+    - { when: has_menu, accept: period, send: period }
+    - { when: has_menu, accept: semicolon, send: 2 }
+    - { when: has_menu, accept: apostrophe, send: 3 }
+
+menu:
+  page_size: 9
+
+style:
+  horizontal: false
+  font_face: HanaMinB,TH-Tshyn-P2,TH-Tshyn-P1,TH-Tshyn-P0,TH-Tshyn-P16
+  font_point: 12
+
+ascii_composer:
+  switch_key:
+    Caps_Lock: clear
+    Control_L: noop
+    Control_R: noop
+    Eisu_toggle: clear
+    Shift_L: commit_code
+    Shift_R: commit_code

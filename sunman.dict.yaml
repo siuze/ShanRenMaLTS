@@ -1,0 +1,24 @@
+### File header must not be modified
+### This file must be encoded into UTF-8.
+---
+name: sunman
+version: 2016.08.25
+use_preset_vocabulary: false
+sort: original
+columns:
+  - text
+  - code
+  - stem
+encoder:
+  exclude_patterns:
+    - '^x.*$'
+    - '^z.*$'
+import_tables:
+  - sunman.brevity
+  - sunman.words
+  - sunman.phrases1
+  - sunman.phrases2
+  - sunman.en
+  - sunman.user
+...
+
