@@ -1,6 +1,6 @@
 ﻿###用户自定义词库
 ---
-name: sunman.user 
+name: sunman.user
 version: "2020.12.7"
 sort: by_wight
 use_preset_vocabulary: true
