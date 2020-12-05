@@ -20,5 +20,6 @@ import_tables:
   - sunman.phrases2
   - sunman.en
   - sunman.user
+  - sunman.extendEF
 ...
 
