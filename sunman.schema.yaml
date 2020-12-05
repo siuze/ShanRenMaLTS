@@ -4,13 +4,17 @@
 schema:
   schema_id: sunman
   name: 山人全息码
-  version: "2016.08.25"
+  version: "2020.12.04"
   author:
     - 发明人 谢振斌
     - 方案制作 疏影孤桐
+    - 定制 葉修齊
   description:
     山人全息码
     通过【袖珍简化字拼音】实现 ` 键拼音反查
+    通过斜杠“/”加关键词输入大量特殊字符
+    常用字符如~！@#%……&*（）——=-+，。\；‘：’“”全部一键上屏，没有原版rime的无用选择
+    中文下方括号直接上屏为“「”和“」”，按下shift键入花括号直接上屏为“【”和“】”，没有原版rime的各种选择
     简入繁出 需要安装 opencc 简繁转换词典
   dependencies:
     - pinyin_simp
@@ -127,14 +131,12 @@ reverse_lookup:
   overwrite_comment: false
 
 punctuator:
-  # import_preset: symbols
-  import_preset: symbols
+  import_preset: mysymbols
 
 recognizer:
   import_preset: default
-  patterns 
+  patterns:
     punct: "^/[0-9]*[a-z]*$"
-    # punct: "^\$([A-Z|a-z]*|[0-9]|10)$""^\\\\([A-Z|a-z]*|[0-9]|10)$"
     pinyin: "`[a-z']*;?$"  
 
 key_binder:
@@ -150,11 +152,13 @@ key_binder:
 
 menu:
   page_size: 9
+  #每页候选字数
 
 style:
   horizontal: false
-  font_face: HanaMinB,TH-Tshyn-P2,TH-Tshyn-P1,TH-Tshyn-P0,TH-Tshyn-P16
-  font_point: 12
+  font_face: TH-Tshyn-P1,TH-Tshyn-P0,TH-Tshyn-P2,TH-Tshyn-P16
+  font_point: 13
+  #字体、字号
 
 ascii_composer:
   switch_key:

@@ -7,8 +7,9 @@ customization:
 patch:
   "style/color_scheme": lost_temple
   style/horizontal: false # 候选横排
-  "style/font_point": 13
+  "style/font_point": 12
 #    "margin_x": 10
 #    "margin_y": 10
   "style/font_face": TH-Tshyn-P2,TH-Tshyn-P1,TH-Tshyn-P0
-  "menu/page_size": 9
+   "punctuator/import_preset": mysymbols
+   "recognizer/patterns/punct": "^/[0-9]*[a-z]*$"

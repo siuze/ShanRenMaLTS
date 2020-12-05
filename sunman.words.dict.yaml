@@ -1,4 +1,5 @@
 ### File header must not be modified
+###单字字表
 ### This file must be encoded into UTF-8.
 ---
 name: sunman.words
@@ -14,7 +15,7 @@ encoder:
     - '^x.*$'
     - '^z.*$'
 ...
- 
+
 要	a
 宀	a
 冖	a
@@ -72185,7 +72186,6 @@ encoder:
 𢽨	pyqxpk
 𪯏	pyqxpk
 𣍐	pyrawbo
-	pyrwvk
 𫧃	pyrwvk
 系	pys
 𠤆	pysebo
