@@ -16,10 +16,11 @@ encoder:
 import_tables:
   - sunman.brevity
   - sunman.words
+  - sunman.FG
   - sunman.phrases1
   - sunman.phrases2
   - sunman.en
   - sunman.user
-  - sunman.extendFG
+  # - sunman.extendFG
 ...
 
