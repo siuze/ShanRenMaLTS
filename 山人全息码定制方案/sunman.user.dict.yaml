@@ -3,7 +3,12 @@
 name: sunman.user
 version: "2020.12.7"
 sort: by_wight
-use_preset_vocabulary: true
+# use_preset_vocabulary: true
+columns:
+  - text   #字词
+  - code   #编码
+  - weight #词频
+  #- stem #构词码
 ...
 
 ☐	koko
@@ -26,3 +31,4 @@ windfall@hnu.edu.cn	windf
 siuze	siu
 𛂧	jmha
 ieksiuze	iek
+测试版本2021	ceshibanben

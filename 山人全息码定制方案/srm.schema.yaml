@@ -1,0 +1,151 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: srm
+  name: 山人全息码srm
+  version: "0.1"
+  author:
+    - 发明人 谢振斌
+    - 方案制作 张仓〈QQ：1095863854〉
+    - 定制 葉修齊
+  description:
+    山人全息码srm构词版
+    包含用户自身词库（原搜狗导出）
+    35万词语表1
+    35万词语表2（简码）
+    easy_en英语单词词库
+    用户自定义词库
+    unicode 13.0 单字词库（93000字左右）
+  dependencies: #依赖
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中, 英 ]
+  - name: full_shape
+    states: [ 半, 全 ]
+  - name: simplification
+    reset: 0
+    states: [ 简, 繁 ]
+  - name: ascii_punct
+    states: [ ，。, ，． ]
+  - name: completion  #四码内是否显示逐码提示开关
+    reset: 1    #0为常关，1为常开
+    states: [ "提示", "常规" ]
+  - options: [ utf8, gbk, gb2312, big5 ]
+    states: [ UTF-8, GBK, GB2312, BIG5 ]
+    reset: 0
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - affix_segmentor@pinyin
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+    - script_translator@pinyin
+  filters:
+    - "lua_filter@zhumatishikaiguan"  #lua逐码提示
+    - charset_filter@utf8
+    - charset_filter@gbk
+    - charset_filter@gb2312
+    - charset_filter@big5
+    - simplifier
+    - simplifier@simplification  #简繁滤镜
+    - uniquifier  #过滤重复字符
+    - reverse_lookup_filter@reverse_lookup
+
+speller:
+  alphabet: 'abcdefghijklmnopqrstuvwxyz;'
+  auto_select: true
+  auto_select_pattern: ^;.$
+  delimiter: '/'
+
+translator:
+  dictionary: srm
+  enable_completion: true  #编码提示
+  enable_charset_filter: false
+  enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
+  enable_sentence: true  #自动造句
+  enable_encoder: true  #自动造词
+  encode_commit_history: false  #上屏自动成词
+  max_phrase_length: 10  #最大成词长度
+  initial_quality: 1  #翻译器优先级
+  db_class: tabledb  #TXT词典
+  #db_class: userdb  #二进制词典
+
+#↓简繁滤镜     
+simplification:
+  opencc_config: s2t.json
+  option_name: simplification
+  tips: all  #简繁对照，all字詞  char字
+
+pinyin:
+  tag: pinyin
+  dictionary: pinyin_simp
+  prefix: "`"
+  tips: 〔拼音〕
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+  initial_quality: 0.2
+
+reverse_lookup:
+  tags: [ pinyin ]
+  dictionary: srm
+  overwrite_comment: false
+
+punctuator:
+  import_preset: mysymbols
+
+recognizer:
+  import_preset: default
+  patterns:
+    punct: "^/[0-9]*[a-z]*$"
+    pinyin: '`[a-z"]*$'
+    # uppercase: "" #中文状态大写锁定直接上屏
+
+key_binder:
+  import_preset: default
+  bindings:  
+    - { when: composing, accept: Return, send: encode }#回车键上屏编码
+    - { when: has_menu, accept: Alt, send: 2 }
+    - { when: has_menu, accept: Alt_R, send: 3 } 
+    - { when: always, accept: "Control+Shift+f", toggle: simplification } #切换简繁
+    - { when: always, accept: "Control+Shift+percent", toggle: encode }
+#    - { when: has_menu, accept: comma, send: 2 }
+    - { when: has_menu, accept: period, send: 2 }
+    - { when: has_menu, accept: semicolon, send: 2 } #分号次选
+    - { when: has_menu, accept: apostrophe, send: 3 } #单引号三选
+    - { when: composing, accept: Control+f, toggle: simplification }
+
+menu:
+  page_size: 9
+
+style:
+  horizontal: false
+  font_face: TH-Tshyn-P1,TH-Tshyn-P0,TH-Tshyn-P2,TH-Tshyn-P16
+  font_point: 13
+
+ascii_composer:
+  switch_key:
+    Caps_Lock: clear
+    Control_L: noop
+    Control_R: noop
+    Eisu_toggle: clear
+    Shift_L: commit_code
+    Shift_R: commit_code
