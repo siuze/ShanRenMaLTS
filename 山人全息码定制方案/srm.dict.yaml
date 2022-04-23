@@ -10,11 +10,9 @@ columns:
   - stem #构词码
   - weight #权重
 import_tables:
-  - srm_c #包含用户自身词库（原搜狗导出）
-  - sunman.phrases1 #35万词语表1
-  - sunman.phrases2 #35万词语表2（简码）
-  - sunman.en #easy_en英语单词词库
-  - sunman.user #用户自定义词库
+  - srm.phrases #35万词语表
+  - srm.en #easy_en英语单词词库
+  - srm.user #用户自定义词库
 #下面是unicode 13.0 单字词库（93000字左右）
 encoder:
   rules:
@@ -855,7 +853,6 @@ encoder:
 穼	amuv	am
 罙	amuv	am
 栗	amux	am
-安	an	anv
 阉	anb	an
 阍	anbo	an
 閽	anbom	an
@@ -32066,7 +32063,6 @@ encoder:
 秊	upq	up
 秊	upqh	up
 秊	upqh	up
-秊	upqh	up
 粁	upqi	up
 瓩	upqw	up
 笉	ups	up
@@ -110744,16 +110740,35 @@ encoder:
 𱍉	ikgv	ik
 𱍊	ibbov	ib
 #2020年 13.0 急用科学与技术用字（U+9FF0–U+9FFC）
-鿰	scbcyw
-鿱	gkbw
-鿲	ucafdo
-鿳	klau
-鿴	klsbv
-鿵	ktqiv
-鿶	kdzgv
-鿷	kibv
-鿸	klau
-鿹	kaqpts
-鿺	ukim
-鿻	kfys
-鿼	kfos
+鿰	scbcyw	sc
+鿱	gkbw	gk
+鿲	ucafdo	uc
+鿳	klau	kl
+鿴	klsbv	kl
+鿵	ktqiv	kt
+鿶	kdzgv	kd
+鿷	kibv	ki
+鿸	klau	kl
+鿹	kaqpts	ka
+鿺	ukim	uk
+鿻	kfys	kf
+鿼	kfos	kf
+#2020年 13.0 10个需分离的汉字（U+4DB6–U+4DBF）
+䶶	
+䶷	
+䶸	
+䶹	
+䶺	
+䶻	
+䶼	
+䶽	
+䶾	
+䶿	
+#2020年 13.0 昆曲工尺谱用字（U+2A6D7–U+2A6DD）
+𪛗	
+𪛘	
+𪛙	
+𪛚	
+𪛛	
+𪛜	
+𪛝

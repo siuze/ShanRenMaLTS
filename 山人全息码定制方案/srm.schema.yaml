@@ -58,14 +58,14 @@ engine:
     - table_translator
     - script_translator@pinyin
   filters:
+    - simplifier
+    - uniquifier
     - "lua_filter@zhumatishikaiguan"  #lua逐码提示
     - charset_filter@utf8
     - charset_filter@gbk
     - charset_filter@gb2312
     - charset_filter@big5
-    - simplifier
     - simplifier@simplification  #简繁滤镜
-    - uniquifier  #过滤重复字符
     - reverse_lookup_filter@reverse_lookup
 
 speller:
