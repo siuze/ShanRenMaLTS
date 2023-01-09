@@ -1,7 +1,7 @@
 # Rime extended dictionary
 # encoding: utf-8
 ---
-name: srm
+name: shanrenmaLTS
 version: 2021.08.26
 sort: by_weight
 columns:
@@ -10,9 +10,9 @@ columns:
   - stem #构词码
   - weight #权重
 import_tables:
-  - srm.phrases #35万词语表
-  - srm.en #easy_en英语单词词库
-  - srm.user #用户自定义词库
+  - shanrenmaLTS.phrases #35万词语表
+  - shanrenmaLTS.en #easy_en英语单词词库
+  - shanrenmaLTS.user #用户自定义词库
 #下面是unicode 13.0 单字词库（93000字左右）
 encoder:
   rules:

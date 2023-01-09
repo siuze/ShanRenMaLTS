@@ -2,16 +2,15 @@
 # encoding: utf-8
 
 schema:
-  schema_id: srm
-  name: 山人全息码srm
+  schema_id: shanrenmaLTS
+  name: 山人码LTS
   version: "0.1"
   author:
     - 发明人 谢振斌
     - 方案制作 张仓〈QQ：1095863854〉
     - 定制 葉修齊
   description:
-    山人全息码srm构词版
-    包含用户自身词库（原搜狗导出）
+    山人码LTS
     35万词语表1
     35万词语表2（简码）
     easy_en英语单词词库
@@ -75,7 +74,7 @@ speller:
   delimiter: '/'
 
 translator:
-  dictionary: srm
+  dictionary: shanrenmaLTS
   enable_completion: true  #编码提示
   enable_charset_filter: false
   enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
@@ -106,7 +105,7 @@ pinyin:
 
 reverse_lookup:
   tags: [ pinyin ]
-  dictionary: srm
+  dictionary: shanrenmaLTS
   overwrite_comment: false
 
 punctuator:
