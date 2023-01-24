@@ -1,0 +1,17 @@
+### 34万词语表
+### File header must not be modified
+### This file must be encoded into UTF-8.
+---
+name: ShanRenMaLTS.user
+version: "2023.01.25"
+use_preset_vocabulary: false
+sort: original
+columns:
+  - text
+  - code
+...
+主贴中之
+例一
+取提
+提示码的规律	AaAaHsLi
+例一和例二中选取提示码的规律似有不同

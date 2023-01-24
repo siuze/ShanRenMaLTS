@@ -1,0 +1,9 @@
+---
+name: ShanRenMaLTS.phrases_EXT_pack
+version: 20023.01.24
+use_preset_vocabulary: false
+sort: original
+import_tables:
+  - ShanRenMaLTS.words_withoutSTEM
+  - ShanRenMaLTS.phrases
+...
