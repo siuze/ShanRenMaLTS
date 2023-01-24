@@ -1,0 +1,15 @@
+# encoding: utf-8
+
+schema:
+  schema_id: ShanRenMaLTS.EN
+  name: "山人码LTS的英文词库"
+  version: "2023.01.25"
+  description:
+    生成词库bin的依赖文件，已与通过custom配置与山人码LTS方案建立關聯，不用勾選。
+
+engine:
+  translators:
+    - table_translator
+
+translator:
+  dictionary: ShanRenMaLTS.EN
