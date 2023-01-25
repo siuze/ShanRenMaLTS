@@ -1,0 +1,13 @@
+### 34万词语表
+### File header must not be modified
+### This file must be encoded into UTF-8.
+---
+name: ShanRenMaLTS.EXT
+version: "2023.01.25"
+use_preset_vocabulary: false
+sort: by_weight
+import_tables:
+  - ShanRenMaLTS.words_fuzz
+  - ShanRenMaLTS.phrases
+  - ShanRenMaLTS.phrases_EXT
+...
