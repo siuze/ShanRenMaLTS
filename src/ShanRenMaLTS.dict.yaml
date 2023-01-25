@@ -3,15 +3,16 @@
 ---
 name: ShanRenMaLTS
 version: "2023.01.25"
-sort: original
+sort: by_weight
 import_tables:
   - ShanRenMaLTS.words
   - ShanRenMaLTS.phrases
+  - ShanRenMaLTS.phrases_BRIEF
+  - ShanRenMaLTS.phrases_EXT
   - ShanRenMaLTS.user
-#下面是unicode 13.0 单字词库（93000字左右）
+#unicode 13.0 单字词库（93000字左右）
 encoder:
   rules:
-# # # # - 依次输入非尾字的前两个字根主码，再输入尾字的单字编码，如词汇，单字编码可选择标准码、常用码或快速码。
     - length_equal: 2
       formula: "AaAbBaBbBc" #2+n
     - length_equal: 3

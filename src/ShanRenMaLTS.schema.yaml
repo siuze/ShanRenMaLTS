@@ -16,7 +16,7 @@ schema:
     - https://notion.siuze.top/shanren
   dependencies: #依赖
     - pinyin_simp #袖珍简化字拼音
-    - ShanRenMaLTS.phrases_EXT
+
 switches:
   - name: simplification
     reset: 0
@@ -52,7 +52,6 @@ engine:
   translators:
     - table_translator
     - punct_translator
-    - script_translator@phrases
     - script_translator@pinyin
   filters:
     - simplifier@simplification  #简繁滤镜
@@ -70,26 +69,14 @@ translator:
   dictionary: ShanRenMaLTS
   enable_completion: true  #编码提示
   enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
-  # enable_sentence: true  #自动造句
-  # enable_encoder: true  #自动造词
+  enable_sentence: false  #自动造句
+  enable_encoder: false  #自动造词
   # encode_commit_history: true  #上屏自动成词
   initial_quality: 1.2  #翻译器优先级
   db_class: tabledb  #TXT词典
   # strict_spelling: true
 
-phrases:
-  dictionary: ShanRenMaLTS.phrases_EXT
-  # prism: ShanRenMaLTS
-  packs:
-    - ShanRenMaLTS.phrases_EXT_pack
-  enable_user_dict: false  #用户词典〔用户词典记录动态词频、用户词〕
-  enable_sentence: true  #自动造句
-  strict_spelling: true
-  initial_quality: 1.1  #翻译器优先级
-  # enable_completion: true
-  # enable_encoder: true
-  spelling_hints: 20
-  # prefix: "+"
+
 
 pinyin: #拼音副翻譯器
   tag: pinyin
@@ -113,8 +100,6 @@ simplification:
   option_name: simplification
   tips: all  #简繁对照，all字詞  char字
 
-menu:
-  page_size:                      9
 
 recognizer:
   import_preset: default

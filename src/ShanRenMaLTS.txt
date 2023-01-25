@@ -1,0 +1,51 @@
+# Rime table
+#@/db_name	ShanRenMaLTS
+#@/db_type	tabledb
+#@/rime_version	1.7.3
+#@/tick	48
+房	AHVb	1
+农	AY	1
+蒾	AdHnNv	1
+解剖	AfRiAf AkLoFdSn	1
+𢫖	AhAgOoTe	1
+字词	AnIz	1
+踏	AoTnMh	1
+女	AsCcCa	1
+晁	BR	1
+index	BdIpDe	1
+已	BlRsWrMt	1
+带	CA	1
+转	CiVc	1
+中文	DEyv BvSgLzDx	1
+胳	DL	1
+膛	DW	1
+列	EJ	1
+贺	FOGb	1
+插入	FpRu	1
+贴	GQO	1
+百万	HbHj	1
+高程	IoUo	1
+词频	IzLl	1
+词峰	IzTl	1
+词库	IzTl	4
+频	LLEy	1
+行	Lv	1
+行列	LvEj	1
+模块	McTf	1
+核心	MkQi	1
+叶	OC	1
+中文	OSI	2
+𪯡	OSIx	2
+中文	OsIx	3
+伟	RYw	1
+何用	RhPv	1
+使用	RhPv	1
+浪尖	SdWn	1
+油量	SgBh	1
+测量	SgBh	1
+库	TLca	1
+声桥	TeMp	1
+饭	UTX	1
+筒体	UaRm	2
+简体	UaRm	1
+运动	WlWf	2
