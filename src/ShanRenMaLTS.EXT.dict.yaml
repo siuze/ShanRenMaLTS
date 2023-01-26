@@ -1,13 +1,11 @@
-### 34万词语表
-### File header must not be modified
-### This file must be encoded into UTF-8.
+### 山人码LTS输入规则增强功能的词库
+### 用来实现词汇n+n+n+n任意省略单字编码的输入规则
 ---
 name: ShanRenMaLTS.EXT
 version: "2023.01.25"
 use_preset_vocabulary: false
 sort: by_weight
 import_tables:
-  - ShanRenMaLTS.words_fuzz
-  - ShanRenMaLTS.phrases
-  - ShanRenMaLTS.phrases_EXT
+  - ShanRenMaLTS.EXT.phrases0
+  - ShanRenMaLTS.EXT.phrases1
 ...

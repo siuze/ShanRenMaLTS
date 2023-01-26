@@ -3,22 +3,18 @@
 schema:
   schema_id: ShanRenMaLTS.EXT
   name: "山人码LTS的中文词库输入增强"
-  version: "2023.01.25"
+  version: "2023.01.26"
   description:
-    生成词库bin的依赖文件，已与通过配置与山人码LTS方案建立關聯，不用勾選。
-
-
+    - 生成词库bin的依赖文件，已与通过配置与山人码LTS方案建立關聯，不用勾選。
+    - 用来实现形如n+n+…+n(1<n<5)这样逐位单字任取2到4位编码的词汇输入规则
 engine:
   translators:
     - script_translator
 speller:
   algebra:
-    - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
     - fuzz/^(\w)(\w).*$/\L$1\L$2/
     - fuzz/^(\w)(\w)(\w).*$/\L$1\L$2\L$3/
     - fuzz/^(\w)(\w)(\w)(\w).*$/\L$1\L$2\L$3\L$4/
   alphabet: abcdefghijklmnopqrstuvwxyz
 translator:
   dictionary: ShanRenMaLTS.EXT
-  # packs:
-    # - ShanRenMaLTS.phrases_EXT_pack

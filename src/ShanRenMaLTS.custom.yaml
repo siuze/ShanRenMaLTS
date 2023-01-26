@@ -30,26 +30,20 @@ patch:
       - xform/^.*$//                                        #① 
     enable_completion:      true                            #① 开启单词预测
     enable_user_dict:       false                           #① 关闭用户词典〔用户词典记录动态词频、用户词〕
-    enable_encoder:         true                            #① 开启自动造词
+    enable_encoder:         false                            #① 开启自动造词
     encode_commit_history:  false                           #① 关闭上屏自动成词
     initial_quality: 1.0                                    #① 翻译器优先级，和主词库同级
   phrases:
     dictionary: ShanRenMaLTS.EXT
-    # prism: ShanRenMaLTS
-    # packs:
-      # - ShanRenMaLTS.phrases_EXT_pack
     enable_user_dict: false  #用户词典〔用户词典记录动态词频、用户词〕
-    enable_sentence: false  #自动造句
+    enable_sentence: true  #自动造句
     strict_spelling: true
     initial_quality: 1.1  #翻译器优先级
-    # enable_completion: true
-    # enable_encoder: true
     spelling_hints: 20
-    # prefix: "+"
+    # db_class: tabledb  #TXT词典
   punctuator/import_preset: ShanRenMaLTS.symbols            #⑥ 特殊符号输入相关设置
   editor/bindings/+:
     Return: commit_raw_input                                #⑤ 输入回车键直接上屏已输入的编码，使其功能与搜狗一致
-    # "Shift+Space": noop
   key_binder/bindings/+:
      - {accept: semicolon, send: 2, when: has_menu}         #⑤ 分號選第二重碼
      - {accept: apostrophe, send: 3, when: has_menu}        #⑤ 引號選第三重碼

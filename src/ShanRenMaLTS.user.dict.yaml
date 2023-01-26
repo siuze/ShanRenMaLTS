@@ -1,17 +1,14 @@
-### 34万词语表
-### File header must not be modified
-### This file must be encoded into UTF-8.
+### 用户自定义词语表
+### 此处定义的词语若不添加编码，则会自动使用ShanRenMaLTS.dict处的规则自动生成，
+### 但是自动生成的词条优先级低于已经写好编码的词条，且无法通过输入习惯调频，无法通过在这里设置权重调频
 ---
 name: ShanRenMaLTS.user
-version: "2023.01.25"
+version: "2023.01.26"
 use_preset_vocabulary: false
 sort: original
 columns:
   - text
   - code
 ...
-主贴中之
-例一
-取提
-提示码的规律	AaAaHsLi
-例一和例二中选取提示码的规律似有不同
+叶修齐
+

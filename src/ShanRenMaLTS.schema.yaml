@@ -12,7 +12,7 @@ schema:
   description:
     - 山人码LTS是山人全息码输入方案的长期支持版
     - 码表覆盖unicode 13.0 所有汉字（9万字左右）
-    - 词库包含35万词以及英文单词词库
+    - 包含百万词句以及英文单词词库
     - https://notion.siuze.top/shanren
   dependencies: #依赖
     - pinyin_simp #袖珍简化字拼音
@@ -59,11 +59,8 @@ engine:
     - uniquifier
 speller:
   alphabet: 'abcdefghijklmnopqrstuvwxyz'
-  algebra:
-    - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
-    # - fuzz/^(\w)(\w).*$/\L$1\L$2/
-    # - fuzz/^(\w)(\w)(\w).*$/\L$1\L$2\L$3/
-    # - fuzz/^(\w)(\w)(\w)(\w).*$/\L$1\L$2\L$3\L$4/
+  # algebra:
+    # - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
 
 translator:
   dictionary: ShanRenMaLTS
@@ -71,10 +68,8 @@ translator:
   enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
   enable_sentence: false  #自动造句
   enable_encoder: false  #自动造词
-  # encode_commit_history: true  #上屏自动成词
   initial_quality: 1.2  #翻译器优先级
   db_class: tabledb  #TXT词典
-  # strict_spelling: true
 
 
 

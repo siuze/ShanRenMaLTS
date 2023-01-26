@@ -1,16 +1,17 @@
+
 # Rime extended dictionary
 # encoding: utf-8
 ---
 name: ShanRenMaLTS
 version: "2023.01.25"
 sort: by_weight
+user_preset_vocabulary: false
 import_tables:
   - ShanRenMaLTS.words
-  - ShanRenMaLTS.phrases
   - ShanRenMaLTS.phrases_BRIEF
-  - ShanRenMaLTS.phrases_EXT
+  - ShanRenMaLTS.phrases0
+  - ShanRenMaLTS.phrases1
   - ShanRenMaLTS.user
-#unicode 13.0 单字词库（93000字左右）
 encoder:
   rules:
     - length_equal: 2
