@@ -1,4 +1,5 @@
-﻿# Rime dictionary
+﻿# 山人码LTS的英文扩充词库
+# 词库内容来自easy_en，同时删除了长度在1~2的单词，删除了少量叠字单词。
 # encoding: utf-8
 ---
 name: ShanRenMaLTS.EN
@@ -6,7 +7,6 @@ version: "2023.01.25"
 sort: by_weight
 use_preset_vocabulary: false
 ...
-
 Aaa	Aaa	973057
 aaah	aaah	916628
 Aachen	aachen	972679
