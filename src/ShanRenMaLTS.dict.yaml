@@ -3,14 +3,14 @@
 # encoding: utf-8
 ---
 name: ShanRenMaLTS
-version: "2023.01.25"
+version: "2023.02.07"
 sort: by_weight
 user_preset_vocabulary: false
 import_tables:
   - ShanRenMaLTS.words
   - ShanRenMaLTS.phrases_BRIEF
-  - ShanRenMaLTS.phrases0
-  - ShanRenMaLTS.phrases1
+  - ShanRenMaLTS.phrases_CORE
+  # - ShanRenMaLTS.phrases_EXT    #200万词库，引入的话会导致编译时间过长，卡死
   - ShanRenMaLTS.user
 encoder:
   rules:

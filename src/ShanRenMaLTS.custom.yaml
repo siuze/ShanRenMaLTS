@@ -1,6 +1,6 @@
 patch:
   # 下面是与山人码LTS核心无关的增强功能配置，如果不需要这些插件，请注释掉所有对应的序号行。
-  # version: "2023.01.25"
+  # version: "2023.02.07"
   # ① 【中英文混输】（请确认ShanRenMaLTS.EN.schema.yaml、ShanRenMaLTS.EN.dict.yaml和lua/mix_english.lua三个依赖文件已置于用户文件夹）
   # ② 【数字输入功能增强】（请确认lua下已导入number_translator.lua文件。输入【=123】【=12+12】等体验，支持四则运算）
   # ④ 【时间打印插件】
@@ -13,14 +13,14 @@ patch:
   switches/@after 0:
     {name: mix_english, reset: 1, states: [中文,混输中英]}  #① 混输/纯中文开关
   engine/processors/@before 0: 
-    lua_processor@*capitalized_commit                       #① 开启中英文混输时可以使用"Shift+space"或"Shift+Return"使得候选单词上屏且首字母自动大写，可以使用“Return”上屏英文单词
+    lua_processor@capitalized_commit                       #① 开启中英文混输时可以使用"Shift+space"或"Shift+Return"使得候选单词上屏且首字母自动大写，可以使用“Return”上屏英文单词
   engine/translators/+: 
-    - script_translator@phrases                             #⑦
+    - script_translator@phrases                           #⑦
     - table_translator@english                              #① 加入英文字典的翻译器
-    - lua_translator@*number_translator                     #② 加入数字增强的翻译器  
-    - lua_translator@*time_date                             #④ 加入时间快捷打印
+    - lua_translator@number_translator                     #② 加入数字增强的翻译器  
+    - lua_translator@time_date                             #④ 加入时间快捷打印
   engine/filters/@before 0: 
-    lua_filter@*mix_english                                 #① 用于实现中英混输功能开关的滤镜
+    lua_filter@mix_english                                 #① 用于实现中英混输功能开关的滤镜
   recognizer/patterns/+: 
     calculate: "^=.*$"                                      #② 标记触发词“=”为calculate标签用于数字增强翻译器
     re_date: "^[A-Z][0-9]+$"                                #④ 标记触发词“大写字母加数字”为redate标签用于日期反查
@@ -34,7 +34,8 @@ patch:
     encode_commit_history:  false                           #① 关闭上屏自动成词
     initial_quality: 1.0                                    #① 翻译器优先级，和主词库同级
   phrases:                                                  #⑦
-    dictionary: ShanRenMaLTS.EXT                            #⑦
+    dictionary: ShanRenMaLTS.EXT                      #⑦
+    # prism: ShanRenMaLTS.EXT
     enable_user_dict: false                                 #⑦
     enable_sentence: true                                   #⑦
     strict_spelling: true                                   #⑦
@@ -60,7 +61,7 @@ patch:
 #【风入松】主题方案
 # 请确保在weasel.custom.yaml中patch下添加【__include: ShanRenMaLTS.custom.yaml:/FengRuSong_style】以引入方案
 # 请确保系统已安装下方配置中出现的字体；
-# 请注意部分配置只在非官方维护的 https://github.com/fxliang/weasel 这一小狼毫的最新版本中得到实现。
+# 请注意下方部分配置只在非官方维护的 https://github.com/fxliang/weasel 这一小狼毫的最新版本中得到实现。
 
   style/label_font_face:    Iosevka
   style/comment_font_face: "Iosevka, SunmanPUA, TH-Tshyn-P2, TH-Tshyn-P1, TH-Tshyn-P0, TH-Tshyn-P16, Segoe UI Emoji:80, Microsoft Yahei"

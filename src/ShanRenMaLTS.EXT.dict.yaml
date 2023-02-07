@@ -2,10 +2,13 @@
 ### 用来实现词汇n+n+n+n任意省略单字编码的输入规则
 ---
 name: ShanRenMaLTS.EXT
-version: "2023.01.25"
-use_preset_vocabulary: false
+version: "2023.02.07"
 sort: by_weight
+columns:
+  - text #字词
+  - code #编码
+  - weight #权重
 import_tables:
-  - ShanRenMaLTS.EXT.phrases0
-  - ShanRenMaLTS.EXT.phrases1
+  - ShanRenMaLTS.EXT.phrases_CORE
+  # - ShanRenMaLTS.EXT.phrases_EXT
 ...
