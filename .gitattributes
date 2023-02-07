@@ -1,2 +1,0 @@
-dict.yaml filter=lfs diff=lfs merge=lfs -text
-*.dict.yaml filter=lfs diff=lfs merge=lfs -text

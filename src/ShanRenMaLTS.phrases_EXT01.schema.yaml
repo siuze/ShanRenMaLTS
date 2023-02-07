@@ -1,0 +1,16 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: ShanRenMaLTS.phrases_EXT01
+  name: 山人码LTS(2+2)扩展词库01
+  version: "2023.02.07"
+  description:
+    - 生成词库bin的依赖文件，已与通过配置与山人码LTS方案依赖，不用勾选。
+
+
+  translators:
+    - table_translator
+
+translator:
+  dictionary: ShanRenMaLTS.phrases_EXT01
