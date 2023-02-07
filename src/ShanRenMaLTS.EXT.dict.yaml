@@ -1,14 +1,3 @@
-### 山人码LTS输入规则增强功能的词库
-### 用来实现词汇n+n+n+n任意省略单字编码的输入规则
----
-name: ShanRenMaLTS.EXT
-version: "2023.02.07"
-sort: by_weight
-columns:
-  - text #字词
-  - code #编码
-  - weight #权重
-import_tables:
-  - ShanRenMaLTS.EXT.phrases_CORE
-  # - ShanRenMaLTS.EXT.phrases_EXT
-...
+version https://git-lfs.github.com/spec/v1
+oid sha256:63ce6e1cdca02b4a6e954c1dd4ddd95c297b33b9b1320a30d532d923a57dba1e
+size 334
