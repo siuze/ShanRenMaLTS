@@ -4,7 +4,7 @@
 schema:
   schema_id: ShanRenMaLTS
   name: 山人码LTS
-  version: "2023.01.25"
+  version: "2023.02.07"
   author:
     - 方案原作 谢振斌
     - 方案定制 葉修齊（siuze）
