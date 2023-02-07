@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 schema:
-  schema_id: ShanRenMaLTS.EXT
-  name: "山人码LTS的中文词库输入增强"
+  schema_id: ShanRenMaLTS.NPN_phrases_EXT03
+  name: "山人码LTS(N+N)核心词库"
   version: "2023.01.26"
   description:
     - 生成词库bin的依赖文件，已与通过配置与山人码LTS方案建立關聯，不用勾選。
@@ -12,9 +12,10 @@ engine:
     - script_translator
 speller:
   algebra:
+    - fuzz/^(\w).*$/\L$1/
     - fuzz/^(\w)(\w).*$/\L$1\L$2/
     - fuzz/^(\w)(\w)(\w).*$/\L$1\L$2\L$3/
     - fuzz/^(\w)(\w)(\w)(\w).*$/\L$1\L$2\L$3\L$4/
   alphabet: abcdefghijklmnopqrstuvwxyz
 translator:
-  dictionary: ShanRenMaLTS.EXT
+  dictionary: ShanRenMaLTS.NPN_phrases_EXT03

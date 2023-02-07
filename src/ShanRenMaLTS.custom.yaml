@@ -8,14 +8,30 @@ patch:
   # ⑥ 【特殊符号输入相关设置】
   # ⑦ 【词汇输入规则增强】
   schema/dependencies/+: 
+    - ShanRenMaLTS.phrases_EXT01
+    - ShanRenMaLTS.phrases_EXT02
+    - ShanRenMaLTS.phrases_EXT03
+    - ShanRenMaLTS.phrases_EXT04
     - ShanRenMaLTS.EN                                       #① 引入英文词库
-    - ShanRenMaLTS.EXT
+    - ShanRenMaLTS.NPN_phrases_CORE
+    - ShanRenMaLTS.NPN_phrases_EXT01
+    - ShanRenMaLTS.NPN_phrases_EXT02
+    - ShanRenMaLTS.NPN_phrases_EXT03
+    - ShanRenMaLTS.NPN_phrases_EXT04
   switches/@after 0:
     {name: mix_english, reset: 1, states: [中文,混输中英]}  #① 混输/纯中文开关
   engine/processors/@before 0: 
     lua_processor@capitalized_commit                       #① 开启中英文混输时可以使用"Shift+space"或"Shift+Return"使得候选单词上屏且首字母自动大写，可以使用“Return”上屏英文单词
   engine/translators/+: 
-    - script_translator@phrases                           #⑦
+    - table_translator@phrases_EXT01
+    - table_translator@phrases_EXT02
+    - table_translator@phrases_EXT03
+    - table_translator@phrases_EXT04
+    # - script_translator@NPN_phrases_CORE
+    # - script_translator@NPN_phrases_EXT01
+    # - script_translator@NPN_phrases_EXT02
+    # - script_translator@NPN_phrases_EXT03
+    # - script_translator@NPN_phrases_EXT04
     - table_translator@english                              #① 加入英文字典的翻译器
     - lua_translator@number_translator                     #② 加入数字增强的翻译器  
     - lua_translator@time_date                             #④ 加入时间快捷打印
@@ -30,14 +46,77 @@ patch:
       - xform/^.*$//                                        #① 
     enable_completion:      true                            #① 开启单词预测
     enable_user_dict:       false                           #① 关闭用户词典〔用户词典记录动态词频、用户词〕
-    enable_encoder:         false                           #① 开启自动造词
+    enable_encoder:         false                           #① 开启自动造词打印机p
     encode_commit_history:  false                           #① 关闭上屏自动成词
     initial_quality: 1.0                                    #① 翻译器优先级，和主词库同级
-  phrases:                                                  #⑦
-    dictionary: ShanRenMaLTS.EXT                      #⑦
-    # prism: ShanRenMaLTS.EXT
-    enable_user_dict: false                                 #⑦
-    enable_sentence: true                                   #⑦
+  phrases_EXT01:
+    dictionary: ShanRenMaLTS.phrases_EXT01
+    enable_completion: true  #编码提示
+    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
+    enable_sentence: false  #自动造句
+    enable_encoder: false  #自动造词
+    initial_quality: 1.2  #翻译器优先级
+    db_class: tabledb  #TXT词典
+    user_dict: ShanRenMaLTS
+  phrases_EXT02:
+    dictionary: ShanRenMaLTS.phrases_EXT02
+    enable_completion: true  #编码提示
+    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
+    enable_sentence: false  #自动造句
+    enable_encoder: false  #自动造词
+    initial_quality: 1.2  #翻译器优先级
+    db_class: tabledb  #TXT词典
+    user_dict: ShanRenMaLTS
+  phrases_EXT03:
+    dictionary: ShanRenMaLTS.phrases_EXT03
+    enable_completion: true  #编码提示
+    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
+    enable_sentence: false  #自动造句
+    enable_encoder: false  #自动造词
+    initial_quality: 1.2  #翻译器优先级
+    db_class: tabledb  #TXT词典
+    user_dict: ShanRenMaLTS
+  phrases_EXT04:
+    dictionary: ShanRenMaLTS.phrases_EXT04
+    enable_completion: true  #编码提示
+    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
+    enable_sentence: false  #自动造句
+    enable_encoder: false  #自动造词
+    initial_quality: 1.2  #翻译器优先级
+    db_class: tabledb  #TXT词典
+    user_dict: ShanRenMaLTS
+  NPN_phrases_CORE:                                          #⑦
+    dictionary: ShanRenMaLTS.NPN_phrases_CORE                            #⑦
+    enable_user_dict: false                                  #⑦
+    enable_sentence: false                                   #⑦
+    strict_spelling: true                                   #⑦
+    initial_quality: 1.1                                    #⑦
+    spelling_hints: 20                                      #⑦
+  NPN_phrases_EXT01:                                          #⑦
+    dictionary: ShanRenMaLTS.NPN_phrases_EXT01                            #⑦
+    enable_user_dict: false                                  #⑦
+    enable_sentence: false                                   #⑦
+    strict_spelling: true                                   #⑦
+    initial_quality: 1.1                                    #⑦
+    spelling_hints: 20                                      #⑦
+  NPN_phrases_EXT02:                                          #⑦
+    dictionary: ShanRenMaLTS.NPN_phrases_EXT02                            #⑦
+    enable_user_dict: false                                  #⑦
+    enable_sentence: false                                   #⑦
+    strict_spelling: true                                   #⑦
+    initial_quality: 1.1                                    #⑦
+    spelling_hints: 20                                      #⑦
+  NPN_phrases_EXT03:                                          #⑦
+    dictionary: ShanRenMaLTS.NPN_phrases_EXT03                            #⑦
+    enable_user_dict: false                                  #⑦
+    enable_sentence: false                                   #⑦
+    strict_spelling: true                                   #⑦
+    initial_quality: 1.1                                    #⑦
+    spelling_hints: 20                                      #⑦
+  NPN_phrases_EXT04:                                          #⑦
+    dictionary: ShanRenMaLTS.NPN_phrases_EXT04                            #⑦
+    enable_user_dict: false                                  #⑦
+    enable_sentence: false                                   #⑦
     strict_spelling: true                                   #⑦
     initial_quality: 1.1                                    #⑦
     spelling_hints: 20                                      #⑦

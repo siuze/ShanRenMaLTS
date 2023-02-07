@@ -1,0 +1,21 @@
+# encoding: utf-8
+
+schema:
+  schema_id: ShanRenMaLTS.NPN_phrases_EXT02
+  name: "山人码LTS(N+N)核心词库"
+  version: "2023.01.26"
+  description:
+    - 生成词库bin的依赖文件，已与通过配置与山人码LTS方案建立關聯，不用勾選。
+    - 用来实现形如n+n+…+n(1<n<5)这样逐位单字任取2到4位编码的词汇输入规则
+engine:
+  translators:
+    - script_translator
+speller:
+  algebra:
+    - fuzz/^(\w).*$/\L$1/
+    - fuzz/^(\w)(\w).*$/\L$1\L$2/
+    - fuzz/^(\w)(\w)(\w).*$/\L$1\L$2\L$3/
+    - fuzz/^(\w)(\w)(\w)(\w).*$/\L$1\L$2\L$3\L$4/
+  alphabet: abcdefghijklmnopqrstuvwxyz
+translator:
+  dictionary: ShanRenMaLTS.NPN_phrases_EXT02
