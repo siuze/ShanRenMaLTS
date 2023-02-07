@@ -1,18 +1,3 @@
-### 用户自定义词语表
-### 此处定义的词语若不添加编码，则会自动使用ShanRenMaLTS.dict处的规则自动生成，
-### 但是自动生成的词条优先级低于已经写好编码的词条，且无法通过输入习惯调频，无法通过在这里设置权重调频
----
-name: ShanRenMaLTS.user
-version: "2023.02.07"
-use_preset_vocabulary: false
-sort: by_weight
-columns:
-  - text
-  - code
-  - weight
-...
-叶修齐	ieksiuze
-山人码	tsrntk
-山人全息码	tsrnrgeqtk
-山人码LTS	tsrntklts	1001
-Version 2023.02.07	tsrntklts	1000
+version https://git-lfs.github.com/spec/v1
+oid sha256:9c1865f78540f8eb8b877ec5a2f020ad416274efbe1b50829f967d2800887707
+size 570
