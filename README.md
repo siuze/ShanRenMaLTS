@@ -1,4 +1,4 @@
-# 山人码LTS
+![Social Preview](https://user-images.githubusercontent.com/54578647/217300073-75a2cd02-756e-45ad-a272-5e32178a51dc.png)
 
 山人码LTS是山人全息码输入方案的长期支持版。
 
