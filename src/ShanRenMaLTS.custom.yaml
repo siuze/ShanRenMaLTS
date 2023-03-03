@@ -1,6 +1,6 @@
 patch:
   # 下面是与山人码LTS核心无关的增强功能配置，如果不需要这些插件，请注释掉所有对应的序号行。
-  # version: "2023.02.07"
+  # version: "2023.03.03"
   # ① 【中英文混输】          （请确认ShanRenMaLTS.EN.schema.yaml、ShanRenMaLTS.EN.dict.yaml和lua/mix_english.lua三个依赖文件已置于用户文件夹）
   # ② 【数字输入功能增强】    （请确认lua目录下已导入number_translator.lua文件。支持金额大写、进制转换、四则运算等功能，输入【=123】【=12+12】等体验，）
   # ④ 【时间打印插件】        （请确认lua目录下已导入time_date.lua文件。支持公/农历查询与打印，输入【week】【date】【time】【nl】【jq】【D20230303（大写字母D使用Shift+D输入）】等体验）
