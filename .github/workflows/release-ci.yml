@@ -19,6 +19,9 @@ jobs:
         with:
           name: ShanRenMaLTS-Release
           path: release.zip
+      - name: 修改打包文件名
+        run: |
+          mv release.zip ShanRenMaLTS-$GITHUB_REF_NAME.zip
       - name: 版本发布
         uses: 'marvinpinto/action-automatic-releases@latest'
         with:
