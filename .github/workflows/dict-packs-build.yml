@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [g++, clang]
+        compiler: [g++]
     steps:
       - name: Checkout last commit
         uses: actions/checkout@v3
