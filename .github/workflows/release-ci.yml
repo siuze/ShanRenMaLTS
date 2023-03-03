@@ -13,22 +13,23 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: 获取构件
         uses: actions/download-artifact@v3
         with:
           name: ShanRenMaLTS-Release
-          path: release.zip
+          path: release.7z
       - name: 修改打包文件名
         run: |
-          mv release.zip ShanRenMaLTS-$GITHUB_REF_NAME.zip
+          mv release.7z ShanRenMaLTS-$GITHUB_REF_NAME.7z
+          ls
       - name: 版本发布
-        uses: 'marvinpinto/action-automatic-releases@latest'
+        uses: ncipollo/release-action@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          draft: false
+          artifacts: "*.7z"
+          tag: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
           prerelease: true
-          automatic_release_tag: ${{ github.ref_name }}
-          title: ${{ github.ref_name }}
-          files: |
-            *.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
