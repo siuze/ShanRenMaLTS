@@ -1,6 +1,6 @@
 patch:
   # 下面是与山人码LTS核心无关的增强功能配置，如果不需要这些插件，请注释掉所有对应的序号行。
-  # version: "2023.03.03"
+  # version: "2023.03.04"
   # ① 【中英文混输】          （请确认ShanRenMaLTS.EN.schema.yaml、ShanRenMaLTS.EN.dict.yaml和lua/mix_english.lua三个依赖文件已置于用户文件夹）
   # ② 【数字输入功能增强】    （请确认lua目录下已导入number_translator.lua文件。支持金额大写、进制转换、四则运算等功能，输入【=123】【=12+12】等体验，）
   # ④ 【时间打印插件】        （请确认lua目录下已导入time_date.lua文件。支持公/农历查询与打印，输入【week】【date】【time】【nl】【jq】【D20230303（大写字母D使用Shift+D输入）】等体验）
@@ -8,11 +8,15 @@ patch:
   # ⑥ 【特殊符号输入相关设置】（请确认存在ShanRenMaLTS.symbols.yaml文件）
   # ⑦ 【上屏历史快捷复用】    （输入【vv】可显示最近上屏内容）
   # ⑧ 【扩充词汇】            （主要是一些中英混合词汇）
+  # ⑨ 【扩展/私用区提示】     （请确认lua目录下已导入cjk_comment.lua文件。对私用区、扩展区的单字，在编码提示区提示响应分区与unicode编码）
+  # ⑩ 【unicode查字】        （请确认lua目录下已导入unicode_translator.lua文件。输入【Ue245】【/ud9f5】可体验）
   schema/dependencies/+: 
     - ShanRenMaLTS.EN                                       #① 引入英文词库
 
   switches/@after 0:
     {name: mix_english, reset: 1, states: [中文,混输中英]}  #① 中英混输/纯中文开关
+  switches/+:
+    - {name: cjk_comment, reset: 1, states: [原样展示,扩展区提示]}  #⑨
   engine/processors/@before 0: 
     lua_processor@*capitalized_commit                       #① 开启中英文混输时可以使用"Shift+space"或"Shift+Return"使得候选单词上屏且首字母自动大写，可以使用“Return”上屏选中的英文单词（“Return”上屏对首选项无效，首选项只能用空格上屏，这是为了兼容“Return”直接上屏编码的功能）
   engine/translators/@before 0: 
@@ -22,11 +26,15 @@ patch:
     - table_translator@english                              #① 加入英文字典的翻译器
     - lua_translator@*number_translator                     #② 加入数字增强的翻译器  
     - lua_translator@*time_date                             #④ 加入时间快捷打印的翻译器
+    - lua_translator@*unicode_translator                    #⑩ 加入unicode编码的翻译器
   engine/filters/@before 0: 
     lua_filter@*mix_english                                 #① 用于实现中英混输功能开关的滤镜
+  engine/filters/+:
+    - lua_filter@*cjk_comment                               #⑨
   recognizer/patterns/+: 
     calculate: "^=.*$"                                      #② 标记触发词“=”为calculate标签用于数字增强翻译器
     re_date: "^D[0-9]+$"                                    #④ 标记触发词“D加数字”为redate标签用于日期反查
+    unicode: "^(U|(/u)).*$"                                 #⑩ 
   english:                                                  #① 英文字典翻译器的配置
     dictionary: ShanRenMaLTS.EN                             #① 导入英文字典
     comment_format:                                         #① 不显示英文单词提示码，因为提示码个英文单词时同形的
