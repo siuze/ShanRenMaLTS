@@ -1,133 +1,64 @@
 patch:
   # 下面是与山人码LTS核心无关的增强功能配置，如果不需要这些插件，请注释掉所有对应的序号行。
   # version: "2023.02.07"
-  # ① 【中英文混输】（请确认ShanRenMaLTS.EN.schema.yaml、ShanRenMaLTS.EN.dict.yaml和lua/mix_english.lua三个依赖文件已置于用户文件夹）
-  # ② 【数字输入功能增强】（请确认lua下已导入number_translator.lua文件。输入【=123】【=12+12】等体验，支持四则运算）
-  # ④ 【时间打印插件】
-  # ⑤ 【按键功能相关设置】
-  # ⑥ 【特殊符号输入相关设置】
-  # ⑦ 【词汇输入规则增强】
+  # ① 【中英文混输】          （请确认ShanRenMaLTS.EN.schema.yaml、ShanRenMaLTS.EN.dict.yaml和lua/mix_english.lua三个依赖文件已置于用户文件夹）
+  # ② 【数字输入功能增强】    （请确认lua目录下已导入number_translator.lua文件。支持金额大写、进制转换、四则运算等功能，输入【=123】【=12+12】等体验，）
+  # ④ 【时间打印插件】        （请确认lua目录下已导入time_date.lua文件。支持公/农历查询与打印，输入【week】【date】【time】【nl】【jq】【D20230303（大写字母D使用Shift+D输入）】等体验）
+  # ⑤ 【按键功能相关设置】    （1.输入回车键直接上屏已输入的编码；2.分号选中第二个候选项；3.引号选中第三个候选项；4.Shift+BackSpace 清空已输入的编码；5.Control+1 或 Control+Shift+f 进行简繁切换；6.Control+2或Control+Shift+e开关中英混输；7.Control+Shift+z删除自造词/词频）
+  # ⑥ 【特殊符号输入相关设置】（请确认存在ShanRenMaLTS.symbols.yaml文件）
+  # ⑦ 【上屏历史快捷复用】    （输入【vv】可显示最近上屏内容）
+  # ⑧ 【扩充词汇】            （主要是一些中英混合词汇）
   schema/dependencies/+: 
-    - ShanRenMaLTS.phrases_EXT01
-    - ShanRenMaLTS.phrases_EXT02
-    - ShanRenMaLTS.phrases_EXT03
-    - ShanRenMaLTS.phrases_EXT04
     - ShanRenMaLTS.EN                                       #① 引入英文词库
-    - ShanRenMaLTS.NPN_phrases_CORE
-    - ShanRenMaLTS.NPN_phrases_EXT01
-    - ShanRenMaLTS.NPN_phrases_EXT02
-    - ShanRenMaLTS.NPN_phrases_EXT03
-    - ShanRenMaLTS.NPN_phrases_EXT04
+
   switches/@after 0:
-    {name: mix_english, reset: 1, states: [中文,混输中英]}  #① 混输/纯中文开关
+    {name: mix_english, reset: 1, states: [中文,混输中英]}  #① 中英混输/纯中文开关
   engine/processors/@before 0: 
-    lua_processor@capitalized_commit                       #① 开启中英文混输时可以使用"Shift+space"或"Shift+Return"使得候选单词上屏且首字母自动大写，可以使用“Return”上屏英文单词
+    lua_processor@*capitalized_commit                       #① 开启中英文混输时可以使用"Shift+space"或"Shift+Return"使得候选单词上屏且首字母自动大写，可以使用“Return”上屏选中的英文单词（“Return”上屏对首选项无效，首选项只能用空格上屏，这是为了兼容“Return”直接上屏编码的功能）
+  engine/translators/@before 0: 
+    history_translator@history                              #⑦ 上屏历史快捷复用的翻译器
   engine/translators/+: 
-    - table_translator@phrases_EXT01
-    - table_translator@phrases_EXT02
-    - table_translator@phrases_EXT03
-    - table_translator@phrases_EXT04
-    # - script_translator@NPN_phrases_CORE
-    # - script_translator@NPN_phrases_EXT01
-    # - script_translator@NPN_phrases_EXT02
-    # - script_translator@NPN_phrases_EXT03
-    # - script_translator@NPN_phrases_EXT04
+    - table_translator@SPEC                                 #⑧ 扩充词汇的翻译器
     - table_translator@english                              #① 加入英文字典的翻译器
-    - lua_translator@number_translator                     #② 加入数字增强的翻译器  
-    - lua_translator@time_date                             #④ 加入时间快捷打印
+    - lua_translator@*number_translator                     #② 加入数字增强的翻译器  
+    - lua_translator@*time_date                             #④ 加入时间快捷打印的翻译器
   engine/filters/@before 0: 
-    lua_filter@mix_english                                 #① 用于实现中英混输功能开关的滤镜
+    lua_filter@*mix_english                                 #① 用于实现中英混输功能开关的滤镜
   recognizer/patterns/+: 
     calculate: "^=.*$"                                      #② 标记触发词“=”为calculate标签用于数字增强翻译器
-    re_date: "^[A-Z][0-9]+$"                                #④ 标记触发词“大写字母加数字”为redate标签用于日期反查
+    re_date: "^D[0-9]+$"                                    #④ 标记触发词“D加数字”为redate标签用于日期反查
   english:                                                  #① 英文字典翻译器的配置
     dictionary: ShanRenMaLTS.EN                             #① 导入英文字典
     comment_format:                                         #① 不显示英文单词提示码，因为提示码个英文单词时同形的
       - xform/^.*$//                                        #① 
     enable_completion:      true                            #① 开启单词预测
     enable_user_dict:       false                           #① 关闭用户词典〔用户词典记录动态词频、用户词〕
-    enable_encoder:         false                           #① 开启自动造词打印机p
+    enable_encoder:         false                           #① 开启自动造词
     encode_commit_history:  false                           #① 关闭上屏自动成词
-    initial_quality: 1.0                                    #① 翻译器优先级，和主词库同级
-  phrases_EXT01:
-    dictionary: ShanRenMaLTS.phrases_EXT01
-    enable_completion: true  #编码提示
-    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
-    enable_sentence: false  #自动造句
-    enable_encoder: false  #自动造词
-    initial_quality: 1.2  #翻译器优先级
-    db_class: tabledb  #TXT词典
-    user_dict: ShanRenMaLTS
-  phrases_EXT02:
-    dictionary: ShanRenMaLTS.phrases_EXT02
-    enable_completion: true  #编码提示
-    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
-    enable_sentence: false  #自动造句
-    enable_encoder: false  #自动造词
-    initial_quality: 1.2  #翻译器优先级
-    db_class: tabledb  #TXT词典
-    user_dict: ShanRenMaLTS
-  phrases_EXT03:
-    dictionary: ShanRenMaLTS.phrases_EXT03
-    enable_completion: true  #编码提示
-    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
-    enable_sentence: false  #自动造句
-    enable_encoder: false  #自动造词
-    initial_quality: 1.2  #翻译器优先级
-    db_class: tabledb  #TXT词典
-    user_dict: ShanRenMaLTS
-  phrases_EXT04:
-    dictionary: ShanRenMaLTS.phrases_EXT04
-    enable_completion: true  #编码提示
-    enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
-    enable_sentence: false  #自动造句
-    enable_encoder: false  #自动造词
-    initial_quality: 1.2  #翻译器优先级
-    db_class: tabledb  #TXT词典
-    user_dict: ShanRenMaLTS
-  NPN_phrases_CORE:                                          #⑦
-    dictionary: ShanRenMaLTS.NPN_phrases_CORE                            #⑦
-    enable_user_dict: false                                  #⑦
-    enable_sentence: false                                   #⑦
-    strict_spelling: true                                   #⑦
-    initial_quality: 1.1                                    #⑦
-    spelling_hints: 20                                      #⑦
-  NPN_phrases_EXT01:                                          #⑦
-    dictionary: ShanRenMaLTS.NPN_phrases_EXT01                            #⑦
-    enable_user_dict: false                                  #⑦
-    enable_sentence: false                                   #⑦
-    strict_spelling: true                                   #⑦
-    initial_quality: 1.1                                    #⑦
-    spelling_hints: 20                                      #⑦
-  NPN_phrases_EXT02:                                          #⑦
-    dictionary: ShanRenMaLTS.NPN_phrases_EXT02                            #⑦
-    enable_user_dict: false                                  #⑦
-    enable_sentence: false                                   #⑦
-    strict_spelling: true                                   #⑦
-    initial_quality: 1.1                                    #⑦
-    spelling_hints: 20                                      #⑦
-  NPN_phrases_EXT03:                                          #⑦
-    dictionary: ShanRenMaLTS.NPN_phrases_EXT03                            #⑦
-    enable_user_dict: false                                  #⑦
-    enable_sentence: false                                   #⑦
-    strict_spelling: true                                   #⑦
-    initial_quality: 1.1                                    #⑦
-    spelling_hints: 20                                      #⑦
-  NPN_phrases_EXT04:                                          #⑦
-    dictionary: ShanRenMaLTS.NPN_phrases_EXT04                            #⑦
-    enable_user_dict: false                                  #⑦
-    enable_sentence: false                                   #⑦
-    strict_spelling: true                                   #⑦
-    initial_quality: 1.1                                    #⑦
-    spelling_hints: 20                                      #⑦
+    initial_quality: 1.2                                    #① 翻译器优先级，和主词库同级
+  history:                                                  #⑦ 上屏历史快捷复用翻译器的配置
+    input: vv                                               #⑦ 用【vv】触发
+    size: 1                                                 #⑦
+    initial_quality: 2000                                   #⑦
+  SPEC:                                                     #⑧ 扩充词汇
+    dictionary: ""                                          #⑧
+    user_dict: ShanRenMaLTS.SPEC                            #⑧
+    db_class: stabledb                                      #⑧
+    enable_completion: true                                 #⑧
+    enable_sentence: false                                  #⑧
+    initial_quality: 1.2                                    #⑧
   punctuator/import_preset: ShanRenMaLTS.symbols            #⑥ 特殊符号输入相关设置
   editor/bindings/+:
     Return: commit_raw_input                                #⑤ 输入回车键直接上屏已输入的编码，使其功能与搜狗一致
   key_binder/bindings/+:
      - {accept: semicolon, send: 2, when: has_menu}         #⑤ 分號選第二重碼
      - {accept: apostrophe, send: 3, when: has_menu}        #⑤ 引號選第三重碼
-     - { when: always,    accept: "Control+1", toggle: simplification} #⑤ Control+1快捷进行简繁切换
-     - { when: always,    accept: "Control+2", toggle: mix_english}    #①⑤ Control+2快捷开关中英混输
+     - {accept: "Shift+BackSpace", send: Escape, when: composing} #⑤ Shift+BackSpace清空已输入的编码
+     - {accept: "Control+1", toggle: simplification, when: always} #⑤ Control+1快捷进行简繁切换
+     - {accept: "Control+2", toggle: mix_english, when: always} #①⑤ Control+2快捷开关中英混输
+     - {accept: "Control+Shift+e", toggle: mix_english, when: always} #⑤
+     - {accept: "Control+Shift+f", toggle: simplification, when: always} #⑤
+     - {accept: "Control+Shift+z", send: "Shift+Delete", when: composing} #⑤
   ascii_composer/switch_key:                                #⑤ ctrl&&shift 切换键效果为
     Caps_Lock: clear                                        #⑤
     Control_L: noop                                         #⑤
@@ -176,7 +107,7 @@ patch:
   style/layout/shadow_offset_y:        4
   style/layout/shadow_radius:          4
   style/layout/spacing:                0
-  menu/page_size:                      9
+  menu/page_size:                      5
 
 
 FengRuSong_style: 
