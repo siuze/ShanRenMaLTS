@@ -2,11 +2,14 @@ name: Commit CI
 
 on:
   push:
-    branches:
-      - '*'
+    branches: [ main, master]
+    paths:
+      - 'src/*'
     tags:
       - '![0-9]+.*'
   pull_request:
+  workflow_dispatch:
+
 
 jobs:
   dict-packs-build:
