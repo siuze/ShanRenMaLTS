@@ -1,0 +1,31 @@
+name: Release CI
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/dict-packs-build.yml
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 获取构件
+        uses: actions/download-artifact@v3
+        with:
+          name: ShanRenMaLTS-Release
+          path: build
+      - name: 版本发布
+        uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: true
+          automatic_release_tag: ${{ github.ref_name }}
+          title: ${{ github.ref_name }}
+          files: |
+            build/*

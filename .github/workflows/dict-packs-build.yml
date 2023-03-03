@@ -31,9 +31,21 @@ jobs:
         run: |
           sudo cp -a ./src/. ./librime/build/bin
           cd ./librime/build/bin/
-          sudo rm -rf build
           sudo mv create_pack/* .
+          sudo mv release/* .
           ./rime_deployer --compile ShanRenMaLTS.creat_pack.schema.yaml
+      - name: 整理方案配置
+        run: |
+          mkdir build
+          sudo cp -rf ./src/release/. build
+          cd build
+          mkdir build
+          sudo cp -rf ./librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin build
+      - name: 保存构件
+        uses: actions/upload-artifact@v3
+        with:
+          name: ShanRenMaLTS-Release
+          path: build
       # - name: 词典扩展包复制到仓库
       #   run: |
       #     sudo cp -rf ./librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin ./src/build
