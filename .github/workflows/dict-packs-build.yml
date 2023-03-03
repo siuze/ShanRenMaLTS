@@ -1,0 +1,50 @@
+name: dict-packs-build
+on:
+  workflow_call:
+    inputs:
+      repository:
+        default: ${{ github.repository }}
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++, clang]
+    steps:
+      - name: Checkout last commit
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ inputs.repository }}
+          submodules: recursive
+      - name: 导入librime仓库并安装
+        run: |
+          git clone --recursive https://github.com/siuze/librime.git
+          cd librime
+          sudo ./action-install-linux.sh
+          sudo make
+          sudo make install
+      - name: 导入方案配置并编译词典扩展包
+        run: |
+          sudo cp -a ./src/. ./librime/build/bin
+          cd ./librime/build/bin/
+          sudo rm -rf build
+          sudo mv create_pack/* .
+          ./rime_deployer --compile ShanRenMaLTS.creat_pack.schema.yaml
+      - name: 词典扩展包复制到仓库
+        run: |
+          sudo cp -rf ./librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin ./src/build
+      - name: 暂存提交
+        run: |
+          git config --global user.name 'siuze'
+          git config --global user.email 'ieksiuze@gmail.com'
+          export TZ='Asia/Shanghai'
+          git add .
+          git commit -m "自动构建词典扩展包" -a
+      - name: 推送
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
