@@ -34,23 +34,23 @@ jobs:
           sudo rm -rf build
           sudo mv create_pack/* .
           ./rime_deployer --compile ShanRenMaLTS.creat_pack.schema.yaml
-      - name: 词典扩展包复制到仓库
-        run: |
-          sudo cp -rf ./librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin ./src/build
-      - name: 检查文件变化
-        id: verify_diff
-        run: |
-          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
-      - name: 暂存提交
-        if: steps.verify_diff.outputs.changed == 'true'
-        run: |
-          git config --global user.name 'siuze'
-          git config --global user.email 'ieksiuze@gmail.com'
-          export TZ='Asia/Shanghai'
-          git add .
-          git commit -m "自动构建词典扩展包" -a
-      - name: 推送
-        if: steps.verify_diff.outputs.changed == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: 词典扩展包复制到仓库
+      #   run: |
+      #     sudo cp -rf ./librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin ./src/build
+      # - name: 检查文件变化
+      #   id: verify_diff
+      #   run: |
+      #     git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+      # - name: 暂存提交
+      #   if: steps.verify_diff.outputs.changed == 'true'
+      #   run: |
+      #     git config --global user.name 'siuze'
+      #     git config --global user.email 'ieksiuze@gmail.com'
+      #     export TZ='Asia/Shanghai'
+      #     git add .
+      #     git commit -m "自动构建词典扩展包" -a
+      # - name: 推送
+      #   if: steps.verify_diff.outputs.changed == 'true'
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
