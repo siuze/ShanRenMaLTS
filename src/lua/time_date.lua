@@ -1,44 +1,10 @@
 --代码来自https://gitee.com/leeonchiu/lunarDate-script-for-Rime/
 
--- 方法1添加于***.custom.yaml
--- patch:
---   "engine/translators/@before 0": lua_translator@Jq_translator
---   "engine/translators/@before 1": lua_translator@lunar_translator
---   "engine/translators/@before 2": lua_translator@QueryLunar_translator
---   "engine/translators/@before 3": lua_translator@number_translator
--- 或者直接
---   "engine/translators/@before 0": lua_translator@time_date
 
--- 方法2添加于***.schema.yaml
---   translators:
---     - "lua_translator@Jq_translator"
---     - "lua_translator@lunar_translator"
---     - "lua_translator@QueryLunar_translator"
---     - "lua_translator@number_translator"
--- 或者直接
---     - "lua_translator@time_date"
 
 -- 输出方法：默认编码week、date、time、nl、jq
--- 农历查询以任意大写字母引导：如D2021010112
--- ==========================================================================
--- select_character.lua以词定字添加方法，
--- 方法1添加于***.custom.yaml
--- patch:
---   "engine/processors/@before 0": lua_processor@select_character
--- 或者
+-- 农历查询以大写字母D引导：如D2021010112
 
--- 方法2添加于***.schema.yaml
---   processors:
---     - "lua_processor@select_character"
-
--- 修改首字上屏与末字上屏快捷键方法
--- 添加于***.custom.yaml内
--- patch:
---   key_binder/select_first_character: 'comma'
---   key_binder/select_last_character: 'period'
-
--- 输出方法默认以 [ 上屏指定候选项的首字，] 上屏指定候选项的末字
--- ==========================================================================
 
 
 rv_var={ week_var="week",date_var="date",nl_var="nong",time_var="time",jq_var="jieq"}	-- 编码关键字修改
@@ -188,10 +154,10 @@ local function QueryLunarInfo(date)
 end
 
 -- 农历查询
-function QueryLunar_translator(input, seg)	--以任意大写字母开头引导反查农历日期，日期位数不足会以当前日期补全。
+function QueryLunar_translator(input, seg)	--以大写字母D开头引导反查农历日期，日期位数不足会以当前日期补全。
 	local str,lunar
-	if string.match(input,"^(%u+%d+)$")~=nil then
-		str = input:gsub("^(%a+)", "")
+	if string.match(input,"^(D%d+)$")~=nil then
+		str = input:gsub("^D", "")
 		if string.match(str,"^(20)%d%d+$")~=nil or string.match(str,"^(19)%d%d+$")~=nil then
 			lunar=QueryLunarInfo(str)
 			if #lunar>0 then
