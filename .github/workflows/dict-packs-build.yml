@@ -40,7 +40,7 @@ jobs:
           sudo cp -rf ./src/release/. build
           cd build
           mkdir build
-          sudo cp -rf ./librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin build
+          sudo cp -rf ../librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin build
       - name: 打包方案
         run: |
           zip -r release.zip build
