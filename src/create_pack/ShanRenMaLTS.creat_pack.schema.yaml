@@ -1,0 +1,24 @@
+# encoding: utf-8
+
+schema:
+  schema_id: ShanRenMaLTS.creat_pack
+  name: "山人码LTS词库扩展包生成方案"
+  description:
+    生成词库扩展包的方案文件
+
+
+engine:
+  translators:
+    - script_translator
+speller:
+  algebra:
+    # - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
+    - fuzz/^(\w)(\w).*$/\L$1\L$2/
+    - fuzz/^(\w)(\w)(\w).*$/\L$1\L$2\L$3/
+    - fuzz/^(\w)(\w)(\w)(\w).*$/\L$1\L$2\L$3\L$4/
+  alphabet: abcdefghijklmnopqrstuvwxyz
+translator:
+  dictionary: ShanRenMaLTS.creat_pack
+  packs:
+    - ShanRenMaLTS.phrases_CORE
+    - ShanRenMaLTS.phrases_EXT
