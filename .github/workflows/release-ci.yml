@@ -28,7 +28,7 @@ jobs:
       - name: 版本发布
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.7z"
+          artifacts: "./ShanRenMaLTS-${{ github.ref_name }}.7z"
           tag: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           prerelease: true
