@@ -4,7 +4,7 @@
 schema:
   schema_id: ShanRenMaLTS
   name: 山人码LTS
-  version: "2023.02.07"
+  version: "2023.03.03"
   author:
     - 方案原作 谢振斌
     - 方案定制 葉修齊（siuze）
@@ -13,16 +13,14 @@ schema:
     - 山人码LTS是山人全息码输入方案的长期支持版
     - 码表覆盖unicode 13.0 所有汉字（9万字左右）
     - 包含百万词句以及英文单词词库
-    - https://notion.siuze.top/shanren
-  dependencies: #依赖
-    - pinyin_simp #袖珍简化字拼音
-
+    - https://siuze.github.io/ShanRenMaLTS/
+  dependencies: #依赖袖珍简化字拼音进行反查，袖珍简化字拼音在rime的win发行版小狼毫下是自带的
+    - pinyin_simp
 
 switches:
   - name: simplification
     reset: 0
     states: [ 简繁不变, 繁体 ]
-
   - name: full_shape
     states: [ 半角, 全角 ]
   - name: ascii_mode
@@ -30,8 +28,6 @@ switches:
     states: [ 中文, 西文 ]
   - name: ascii_punct
     states: [ 。句读 , .句读 ]
-
-
 
 engine:
   processors:
@@ -51,33 +47,44 @@ engine:
     - punct_segmentor
     - fallback_segmentor
   translators:
-    - table_translator
+    - script_translator
     - punct_translator
     - script_translator@pinyin
   filters:
     - simplifier@simplification  #简繁滤镜
     - reverse_lookup_filter@reverse_lookup
     - uniquifier
+
 speller:
-  alphabet: 'abcdefghijklmnopqrstuvwxyz'
-  # algebra:
-    # - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
+  algebra:
+    # - fuzz/^(\w).*$/\L$1/
+    - fuzz/^(\w)(\w).*$/\L$1\L$2/
+    - fuzz/^(\w)(\w)(\w).*$/\L$1\L$2\L$3/
+    - fuzz/^(\w)(\w)(\w)(\w).*$/\L$1\L$2\L$3\L$4/
+  delimiter: " \\"
 
 translator:
-  dictionary: ShanRenMaLTS
-  enable_completion: true  #编码提示
+  dictionary: ShanRenMaLTS  #单字码表
+  packs:
+    - ShanRenMaLTS.phrases_CORE  #核心词库
+    - ShanRenMaLTS.phrases_EXT   #扩展词库
+  enable_completion: true  # 编码提示开关
+  always_show_comments: true #打开总是显示提示码，关闭时，若候选项的编码完全符合已输入编码，候选项就会隐藏提示码，输入的时候体验有些不连贯
   enable_user_dict: true  #用户词典〔用户词典记录动态词频、用户词〕
   enable_sentence: true  #自动造句
   enable_encoder: true  #自动造词
+  encode_commit_history: true
   initial_quality: 1.2  #翻译器优先级
+  strict_spelling: false
   db_class: tabledb  #TXT词典
-  user_dict: ShanRenMaLTS
+  spelling_hints: 10  #长度10以内的词汇都显示具体的编码
+
 
 pinyin: #拼音副翻譯器
   tag: pinyin
   dictionary: pinyin_simp
   prefix: "`"
-  tips: 〔拼音〕
+  tips: 〔拼音反查〕
   preedit_format:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
@@ -87,7 +94,9 @@ reverse_lookup:
   tags: [ pinyin ]   #掛在這個tag所對應的翻譯器上
   dictionary: ShanRenMaLTS
   overwrite_comment: false
-
+  packs:  #h好像反查用不了packs
+    - ShanRenMaLTS.phrases_CORE
+    - ShanRenMaLTS.phrases_EXT
 
 #↓简繁滤镜     
 simplification:
@@ -100,8 +109,8 @@ recognizer:
   import_preset: default
   patterns:
     punct: "^/[0-9]*[a-z]*$"
-    pinyin: "`[a-z]*$"
-
+    pinyin: "`[a-z]+$"
 
 key_binder:
   import_preset: default
+
