@@ -41,15 +41,11 @@ jobs:
           cd build
           mkdir build
           sudo cp -rf ../librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin build
-      - name: 打包方案
-        uses: edgarrc/action-7z@v1
-        with:
-          args: 7z a -t7z -mx=9 release.7z ./build/
       - name: 保存构件
         uses: actions/upload-artifact@v3
         with:
           name: ShanRenMaLTS-Release
-          path: release.7z
+          path: ./build/
       # - name: 词典扩展包复制到仓库
       #   run: |
       #     sudo cp -rf ./librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin ./src/build
