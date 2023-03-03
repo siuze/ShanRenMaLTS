@@ -3,7 +3,7 @@ name: Release CI
 on:
   push:
     tags:
-      - 'v[0-9]+.*'
+      - 'v*'
   workflow_dispatch:
 
 jobs:
