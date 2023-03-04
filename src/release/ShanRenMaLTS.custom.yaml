@@ -73,6 +73,7 @@ patch:
     Control_R: noop                                         #⑤
     Shift_L: commit_code                                    #⑤
     Shift_R: commit_code                                    #⑤
+  menu/page_size: 5
 
 
 
@@ -81,62 +82,53 @@ patch:
 # 请确保系统已安装下方配置中出现的字体；
 # 请注意下方部分配置只在非官方维护的 https://github.com/fxliang/weasel 这一小狼毫的最新版本中得到实现。
 
+FengRuSong_style: 
   style/label_font_face:    Iosevka
   style/comment_font_face: "Iosevka, SunmanPUA, TH-Tshyn-P2, TH-Tshyn-P1, TH-Tshyn-P0, TH-Tshyn-P16, Segoe UI Emoji:80, Microsoft Yahei"
   style/font_face:         "Iosevka, SunmanPUA, 华文中宋, TH-Tshyn-P2, TH-Tshyn-P1, TH-Tshyn-P0, TH-Tshyn-P16, Segoe UI Emoji:80, Microsoft Yahei"
-  style/label_font_point:   10
-  style/comment_font_point: 10
-  style/font_point:         14
+  style/font_point:                   14
+  style/label_font_point:             10
+  style/comment_font_point:           10
   style/blur_window:                  true
   style/color_font:                   true
-  style/display_tray_icon:            false
-  style/fullscreen:                   false
-  style/horizontal:                   false
+  style/horizontal:                  false
   style/inline_preedit:               true
-  style/hide_candidates_when_single:  false
-  style/preedit_type:                 composition
-  style/layout/align_type:            bottom
+  style/fullscreen:                  false
+  style/hide_candidates_when_single: false
+  style/label_format:                 "%s"
+  style/mark_text:                     " "
+  style/preedit_type:          composition
   style/capture_type:                 none
-  style/label_format:                 "%s."
-  style/mark_text:                    " "
-  style/layout/border_width:           3
-  style/layout/candidate_spacing:      5
-  style/layout/corner_radius:         20
-  style/layout/hilite_padding:         1
-  style/layout/hilite_spacing:        13
-  style/layout/margin_x:              10
-  style/layout/margin_y:               4
-  style/layout/max_width:              0
-  style/layout/min_width:            100
-  style/layout/min_height:             0
-  style/layout/round_corner:          15
-  style/layout/round_corner_ex:       10
-  style/layout/shadow_offset_x:        4
-  style/layout/shadow_offset_y:        4
-  style/layout/shadow_radius:          4
-  style/layout/spacing:                0
-  menu/page_size:                      5
-
-
-FengRuSong_style: 
-  style/color_scheme:       FengRuSong
+  style/layout/align_type:          bottom
+  style/layout/min_height:            0
+  style/layout/border:                2
+  style/layout/spacing:               0
+  style/layout/candidate_spacing:     5
+  style/layout/shadow_radius:         5
+  style/layout/shadow_offset_x:       5
+  style/layout/shadow_offset_y:       5
+  style/layout/hilite_padding:        1
+  style/layout/hilite_spacing:       13
+  style/layout/margin_x:             10
+  style/layout/margin_y:              4
+  style/layout/round_corner:          6
+  style/layout/corner_radius:        10
+  style/color_scheme:  FengRuSong
   preset_color_schemes/FengRuSong:
     name: "FengRuSong／风入松"
     author: "葉修齊 <ieksiuze@gmail.com>"
-    back_color: 0xCC85AE2B
-    border_color: 0x1085AE2B
-    candidate_shadow_color: 0x00000000
-    candidate_text_color: 0xFFFFFF
-    comment_text_color: 0xEDEDED
-    hilited_back_color: 0xAADE37
-    hilited_candidate_back_color: 0xAADE37
-    hilited_candidate_shadow_color: 0x20000000
-    hilited_candidate_text_color: 0xFFFFFF
-    hilited_comment_text_color: 0xFFFFFF
-    hilited_label_color: 0xFFFFFF
-    hilited_mark_color: 0xFFFFFF
-    hilited_shadow_color: 0x20000000
-    hilited_text_color: 0xFFFFFF
-    label_color: 0xEDEDED
-    shadow_color: 0x20000000
-    text_color: 0xFFFFFF
+    candidate_text_color: 0x668521
+    comment_text_color: 0x85AE2B
+    comment_back_color: 0x00f9f9f9
+    text_color: 0x1a1a1a
+    back_color: 0x3ff9f9f9
+    border_color:  0x1f9f9f9f
+    hilited_text_color: 0x1a1a1a
+    hilited_back_color: 0xffffff
+    hilited_candidate_text_color:  0xffffff
+    hilited_candidate_back_color: 0xCC99C832
+    hilited_mark_color: 0xffffff
+    hilited_comment_text_color:   0xffffff
+    hilited_label_color: 0xffffff
+    label_color: 0x85AE2B
+    shadow_color: 0x00000000
