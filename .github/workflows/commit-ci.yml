@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'src/**'
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
