@@ -31,6 +31,7 @@ jobs:
         run: |
           sudo cp -a ./src/. ./librime/build/bin
           cd ./librime/build/bin/
+          sudo mv build/* .
           sudo mv create_pack/* .
           sudo mv release/* .
           ./rime_deployer --compile ShanRenMaLTS.creat_pack.schema.yaml
@@ -38,6 +39,7 @@ jobs:
         run: |
           mkdir build
           sudo cp -rf ./src/release/. build
+          sudo cp -rf ./src/build/ShanRenMaLTS.words.dict.yaml build
           cd build
           mkdir build
           sudo cp -rf ../librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin build
