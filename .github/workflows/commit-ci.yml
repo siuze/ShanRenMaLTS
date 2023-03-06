@@ -1,0 +1,49 @@
+name: 生成码表
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检查分支
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: 安装 Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: 安装模块
+        run: |
+          cd src
+          pip install -r requirements.txt
+
+      - name: 构建码表
+        run: | 
+          cd src
+          python 构建码表.py
+
+      - name: 检查文件变化
+        id: verify_diff
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+      - name: 暂存提交
+        if: steps.verify_diff.outputs.changed == 'true'
+        run: |
+          git config --global user.name 'siuze'
+          git config --global user.email 'ieksiuze@gmail.com'
+          export TZ='Asia/Shanghai'
+          git add .
+          git commit -m "自动构建码表" -a
+      - name: 推送
+        if: steps.verify_diff.outputs.changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

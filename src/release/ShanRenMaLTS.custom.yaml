@@ -10,9 +10,9 @@ patch:
   # ⑧ 【扩充词汇】            （主要是一些中英混合词汇）
   # ⑨ 【扩展/私用区提示】     （请确认lua目录下已导入cjk_comment.lua文件。对私用区、扩展区的单字，在编码提示区提示响应分区与unicode编码）
   # ⑩ 【unicode查字】        （请确认lua目录下已导入unicode_translator.lua文件。输入【Ue245】【/ud9f5】可体验）
+  schema/icon: ShanRenMaLTS.ico
   schema/dependencies/+: 
     - ShanRenMaLTS.EN                                       #① 引入英文词库
-
   switches/@after 0:
     {name: mix_english, reset: 1, states: [中文,混输中英]}  #① 中英混输/纯中文开关
   switches/+:
