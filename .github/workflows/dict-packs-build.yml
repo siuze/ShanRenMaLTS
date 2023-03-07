@@ -39,6 +39,7 @@ jobs:
         run: |
           mkdir build
           sudo cp -rf ./src/release/. build
+          sudo cp -rf ./deps/rime.dll build
           sudo cp -rf ./src/build/ShanRenMaLTS.words.dict.yaml build
           cd build
           mkdir build
@@ -46,7 +47,7 @@ jobs:
       - name: 保存构件
         uses: actions/upload-artifact@v3
         with:
-          name: ShanRenMaLTS-Release
+          name: ShanRenMaLTS-Win-Release
           path: ./build/
       # - name: 词典扩展包复制到仓库
       #   run: |
