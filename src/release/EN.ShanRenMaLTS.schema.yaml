@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 schema:
-  schema_id: ShanRenMaLTS.EN
+  schema_id: EN.ShanRenMaLTS
   name: "山人码LTS的英文词库"
   version: "2023.01.25"
   description:
@@ -12,4 +12,4 @@ engine:
     - table_translator
 
 translator:
-  dictionary: ShanRenMaLTS.EN
+  dictionary: EN.ShanRenMaLTS

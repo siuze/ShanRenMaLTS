@@ -12,7 +12,7 @@ patch:
   # ⑩ 【unicode查字】        （请确认lua目录下已导入unicode_translator.lua文件。输入【Ue245】【/ud9f5】可体验）
   schema/icon: ShanRenMaLTS.ico
   schema/dependencies/+: 
-    - ShanRenMaLTS.EN                                       #① 引入英文词库
+    - EN.ShanRenMaLTS                                       #① 引入英文词库
   switches/@after 0:
     {name: mix_english, reset: 1, states: [中文,混输中英]}  #① 中英混输/纯中文开关
   switches/+:
@@ -36,13 +36,15 @@ patch:
     re_date: "^D[0-9]+$"                                    #④ 标记触发词“D加数字”为redate标签用于日期反查
     unicode: "^(U|(/u)).*$"                                 #⑩ 
   english:                                                  #① 英文字典翻译器的配置
-    dictionary: ShanRenMaLTS.EN                             #① 导入英文字典
+    dictionary: EN.ShanRenMaLTS                             #① 导入英文字典
     comment_format:                                         #① 不显示英文单词提示码，因为提示码个英文单词时同形的
       - xform/^.*$//                                        #① 
     enable_completion:      true                            #① 开启单词预测
-    enable_user_dict:       false                           #① 关闭用户词典〔用户词典记录动态词频、用户词〕
-    enable_encoder:         false                           #① 开启自动造词
-    encode_commit_history:  false                           #① 关闭上屏自动成词
+    enable_user_dict:       true                            #① 开启用户词典〔用户词典记录动态词频、用户词〕
+    enable_encoder:         true                            #① 
+    enable_sentence:        true                            #① 开启自动造词
+    encode_commit_history:  true                            #① 关闭上屏自动成词
+    db_class: tabledb                                       #① TXT词典
     initial_quality: 1.2                                    #① 翻译器优先级，和主词库同级
   history:                                                  #⑦ 上屏历史快捷复用翻译器的配置
     input: vv                                               #⑦ 用【vv】触发
