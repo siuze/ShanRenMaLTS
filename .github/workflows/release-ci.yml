@@ -19,18 +19,18 @@ jobs:
       - name: 获取构件
         uses: actions/download-artifact@v3
         with:
-          name: ShanRenMaLTS-Release
+          name: ShanRenMaLTS-Win-Release
           path: ./Release/build
 
       - name: 打包方案
         uses: edgarrc/action-7z@v1
         with:
-          args: 7z a -t7z -mx=9 ShanRenMaLTS-${{ github.ref_name }}.7z ./Release/build/.
+          args: 7z a -t7z -mx=9 ShanRenMaLTS-${{ github.ref_name }}-Win.7z ./Release/build/.
 
       - name: 版本发布
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "ShanRenMaLTS-${{ github.ref_name }}.7z"
+          artifacts: "ShanRenMaLTS-${{ github.ref_name }}-Win.7z"
           tag: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           prerelease: true
