@@ -1,7 +1,7 @@
 patch:
   # 下面是与山人码LTS核心无关的增强功能配置，如果不需要这些插件，请注释掉所有对应的序号行。
-  # version: "2023.03.04"
-  # ① 【中英文混输】          （请确认ShanRenMaLTS.EN.schema.yaml、ShanRenMaLTS.EN.dict.yaml和lua/mix_english.lua三个依赖文件已置于用户文件夹）
+  # version: "2023.03.07"
+  # ① 【中英文混输】          （请确认ShanRenMaLTS.EN.schema.yaml、ShanRenMaLTS.EN.dict.yaml、lua/capitalized_commit.lua和lua/mix_english.lua依赖文件已置于用户文件夹）
   # ② 【数字输入功能增强】    （请确认lua目录下已导入number_translator.lua文件。支持金额大写、进制转换、四则运算等功能，输入【=123】【=12+12】等体验，）
   # ④ 【时间打印插件】        （请确认lua目录下已导入time_date.lua文件。支持公/农历查询与打印，输入【week】【date】【time】【nl】【jq】【D20230303（大写字母D使用Shift+D输入）】等体验）
   # ⑤ 【按键功能相关设置】    （1.输入回车键直接上屏已输入的编码；2.分号选中第二个候选项；3.引号选中第三个候选项；4.Shift+BackSpace 清空已输入的编码；5.Control+1 或 Control+Shift+f 进行简繁切换；6.Control+2或Control+Shift+e开关中英混输；7.Control+Shift+z删除自造词/词频）
@@ -45,6 +45,7 @@ patch:
     enable_sentence:        true                            #① 开启自动造词
     encode_commit_history:  true                            #① 关闭上屏自动成词
     db_class: tabledb                                       #① TXT词典
+    user_dict: EN
     initial_quality: 1.2                                    #① 翻译器优先级，和主词库同级
   history:                                                  #⑦ 上屏历史快捷复用翻译器的配置
     input: vv                                               #⑦ 用【vv】触发
@@ -66,9 +67,11 @@ patch:
      - {accept: "Shift+BackSpace", send: Escape, when: composing} #⑤ Shift+BackSpace清空已输入的编码
      - {accept: "Control+1", toggle: simplification, when: always} #⑤ Control+1快捷进行简繁切换
      - {accept: "Control+2", toggle: mix_english, when: always} #①⑤ Control+2快捷开关中英混输
-     - {accept: "Control+Shift+e", toggle: mix_english, when: always} #⑤
-     - {accept: "Control+Shift+f", toggle: simplification, when: always} #⑤
-     - {accept: "Control+Shift+z", send: "Shift+Delete", when: composing} #⑤
+     - {accept: "Control+3", toggle: cjk_comment, when: always} #⑨
+     - {accept: "Control+Shift+E", toggle: mix_english, when: always} #⑤
+     - {accept: "Control+Shift+F", toggle: simplification, when: always} #⑤
+     - {accept: "Control+Shift+K", toggle: cjk_comment, when: always} #⑨
+     - {accept: "Control+Shift+Z", send: "Shift+Delete", when: composing} #⑤
   ascii_composer/switch_key:                                #⑤ ctrl&&shift 切换键效果为
     Caps_Lock: clear                                        #⑤
     Control_L: noop                                         #⑤
