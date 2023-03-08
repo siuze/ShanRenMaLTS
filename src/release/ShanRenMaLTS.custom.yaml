@@ -89,8 +89,8 @@ patch:
 
 FengRuSong_style: 
   style/label_font_face:    Iosevka
-  style/comment_font_face: "Iosevka, SunmanPUA, TH-Tshyn-P2, TH-Tshyn-P1, TH-Tshyn-P0, TH-Tshyn-P16, Segoe UI Emoji:80, Microsoft Yahei"
-  style/font_face:         "Iosevka, SunmanPUA, 华文中宋, TH-Tshyn-P2, TH-Tshyn-P1, TH-Tshyn-P0, TH-Tshyn-P16, Segoe UI Emoji:80, Microsoft Yahei"
+  style/comment_font_face: "Iosevka, SunmanPUA, TH-Sy-P0, TH-Sy-P16, TH-Sy-P2, TH-Tshyn-P2, TH-Tshyn-P1, TH-Tshyn-P0, TH-Tshyn-P16"
+  style/font_face:         "Iosevka, SunmanPUA, 华文中宋, TH-Sy-P0, TH-Sy-P16, TH-Sy-P2, TH-Tshyn-P2, TH-Tshyn-P1, TH-Tshyn-P0, TH-Tshyn-P16"
   style/font_point:                   14
   style/label_font_point:             10
   style/comment_font_point:           10
