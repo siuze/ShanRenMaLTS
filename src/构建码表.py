@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import re
+# build_path = '../tmp'
+build_path = 'build'
 #pipreqs . --encoding=utf8 --force
 print("1. 获取字根词典")
 字根词典={}
@@ -134,7 +136,7 @@ print(单字词典.head(5))
 print()
 print("7.打印单字码表")
 import math
-单字词典.to_csv("./build/单字词典.csv",encoding='utf8',index=None,sep='\t')
+单字词典.to_csv(f"./{build_path}/单字词典.csv",encoding='utf8',index=None,sep='\t')
 tmp = []
 for i in range(len(单字词典)):
 	单字  = 单字词典.iat[i,0]
@@ -159,14 +161,14 @@ for i in range(len(单字词典)):
 码表 = pd.DataFrame(columns=['单字', '编码', '编码类别', '词库权重'], data=tmp)
 码表['统一小写编码'] = 码表['编码'].str.lower()
 码表.sort_values(by=['统一小写编码','词库权重','编码类别','单字'], ascending=[ True, False,True,True], inplace=True)
-码表.to_csv("./build/ShanRenMaLTS.words.dict.yaml", encoding='utf8', index=None, header=False, sep='\t', columns=['单字','统一小写编码','词库权重'])
+码表.to_csv(f"./{build_path}/ShanRenMaLTS.words.dict.yaml", encoding='utf8', index=None, header=False, sep='\t', columns=['单字','统一小写编码','词库权重'])
 from datetime import datetime
 import pytz
 UTC8 = pytz.timezone("Asia/Shanghai") 
 timenow = datetime.now(UTC8)
 timenow = timenow.strftime("%Y-%m-%d %H:%M:%S")
 码表文件头 = f'# 山人码LTS单字码表\n# encoding: utf-8\n---\nname: ShanRenMaLTS.words\nversion: "{timenow}"\nsort: by_weight\nuse_preset_vocabulary: false\ncolumns:\n  - text #字词\n  - code #编码\n  - weight #权重\n...\n'
-with open("./build/ShanRenMaLTS.words.dict.yaml", "r+",encoding='utf8') as f:
+with open(f"./{build_path}/ShanRenMaLTS.words.dict.yaml", "r+",encoding='utf8') as f:
 	old = f.read()
 	f.seek(0)
 	f.write(码表文件头)
@@ -376,8 +378,8 @@ def 生成并写入(词库路径,码表路径,码表名):
 		f.seek(0)
 		f.write(码表文件头)
 		f.write(old)
-生成并写入("./data/核心词库.csv","./build/ShanRenMaLTS.phrases_CORE.dict.yaml",'ShanRenMaLTS.phrases_CORE')
-生成并写入("./data/扩展词库0.csv","./build/ShanRenMaLTS.phrases_EXT01.dict.yaml",'ShanRenMaLTS.phrases_EXT01')
-生成并写入("./data/扩展词库1.csv","./build/ShanRenMaLTS.phrases_EXT02.dict.yaml",'ShanRenMaLTS.phrases_EXT02')
-生成并写入("./data/扩展词库2.csv","./build/ShanRenMaLTS.phrases_EXT03.dict.yaml",'ShanRenMaLTS.phrases_EXT03')
-生成并写入("./data/扩展词库3.csv","./build/ShanRenMaLTS.phrases_EXT04.dict.yaml",'ShanRenMaLTS.phrases_EXT04')
+生成并写入("./data/核心词库.csv",f"./{build_path}/ShanRenMaLTS.phrases_CORE.dict.yaml",'ShanRenMaLTS.phrases_CORE')
+生成并写入("./data/扩展词库0.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT01.dict.yaml",'ShanRenMaLTS.phrases_EXT01')
+生成并写入("./data/扩展词库1.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT02.dict.yaml",'ShanRenMaLTS.phrases_EXT02')
+生成并写入("./data/扩展词库2.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT03.dict.yaml",'ShanRenMaLTS.phrases_EXT03')
+生成并写入("./data/扩展词库3.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT04.dict.yaml",'ShanRenMaLTS.phrases_EXT04')
