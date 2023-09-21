@@ -134,6 +134,57 @@ for i in range(len(单字词典)):
 		剩余常用码 = 剩余常用码[1:]
 print(单字词典.head(5))
 print()
+
+
+print("6+. 获取单字兼容拆分")
+兼容拆分=pd.read_csv('data/兼容拆分表.csv',sep='\t',encoding='utf8')
+兼容拆分 = 兼容拆分.set_index("单字", drop=False)
+print(兼容拆分.head(5))
+print(兼容拆分.shape)
+print()
+print("6++. 生成兼容拆分码")
+兼容拆分.insert(兼容拆分.shape[1], '标准码',None)#增加一列标准码
+兼容拆分.insert(兼容拆分.shape[1], '全主码',None)#增加一列全主码
+兼容拆分.insert(兼容拆分.shape[1], '兼容码',None)#增加一列兼容码
+for i in range(len(兼容拆分)):
+	单字  = 兼容拆分.iat[i,0]
+	拆分 = 兼容拆分.iat[i,1]
+	if i%5000==0:
+		print(f"{i} {单字} {拆分}")
+	字根数=len(拆分)
+	标准码=''
+	全主码=''
+	if 字根数 == 1:#单字根字
+		字根=字根词典[拆分]
+		标准码=字根["code"] #字根码
+		全主码=标准码[0]
+	else:#多字根字
+		for 字根 in 拆分:
+			标准码+=字根词典[字根]["code"][:2]#标准码：依次取每个字根的主码和该字根第一个小码
+			全主码+=字根词典[字根]["code"][0]
+	兼容拆分.loc[单字,"标准码"]=标准码
+	兼容拆分.loc[单字,"全主码"]=全主码
+	兼容码=''
+	if 字根数 > 1:
+		for 字根 in 拆分:
+			兼容码+=字根词典[字根]["code"][0]#常用码：依次取每个字根的主码
+		if 字根数<5:
+			兼容码+=字根词典[拆分[-1]]["code"][1:2]#再取尾字根小码
+			兼容码+=字根词典[拆分[0]]["code"][1:2]#再取首字根小码
+		elif 字根数==5:
+			末尾小码=字根词典[拆分[-1]]["code"][1:2]
+			if 末尾小码!='':
+					兼容码+=末尾小码
+			else:
+					兼容码+=字根词典[拆分[0]]["code"][1:2]#再取首字根小码
+		elif 字根数>5:
+				兼容码+=字根词典[拆分[-1]]["code"][1:2]#再取尾字根小码
+	兼容拆分.loc[单字,"兼容码"]=兼容码
+print(兼容拆分.head(5))
+print()
+
+
+
 print("7.打印单字码表")
 import math
 单字词典.to_csv(f"./{build_path}/单字词典.csv",encoding='utf8',index=None,sep='\t')
@@ -148,6 +199,7 @@ for i in range(len(单字词典)):
 	快速码= 单字词典.iat[i,9]
 	短特设码= 单字词典.iat[i,7]
 	长特设码= 单字词典.iat[i,8]
+
 	if 长特设码 !=None and 长特设码 != '':
 			tmp.append([单字,长特设码,0,词库权重])
 	if 短特设码 !=None and 短特设码 != '':
@@ -158,6 +210,15 @@ for i in range(len(单字词典)):
 			tmp.append([单字,常用码,3,词库权重])
 	if len(拆分)==1 and 标准码 !=None and 标准码 != '' and 标准码!=短特设码 and 标准码!=快速码 and 标准码!=常用码:
 			tmp.append([单字,标准码,4,词库权重])
+
+兼容拆分.to_csv(f"./{build_path}/兼容拆分.csv",encoding='utf8',index=None,sep='\t')
+for i in range(len(兼容拆分)):
+	单字  = 兼容拆分.iat[i,0]
+	词库权重 = math.ceil(兼容拆分.iat[i,3])
+	拆分  = 兼容拆分.iat[i,1]
+	兼容码= 兼容拆分.iat[i,6]
+	tmp.append([单字,兼容码,5,词库权重])
+
 码表 = pd.DataFrame(columns=['单字', '编码', '编码类别', '词库权重'], data=tmp)
 码表['统一小写编码'] = 码表['编码'].str.lower()
 码表.sort_values(by=['统一小写编码','词库权重','编码类别','单字'], ascending=[ True, False,True,True], inplace=True)
@@ -173,6 +234,14 @@ with open(f"./{build_path}/ShanRenMaLTS.words.dict.yaml", "r+",encoding='utf8') 
 	f.seek(0)
 	f.write(码表文件头)
 	f.write(old)
+
+
+
+
+
+
+
+
 
 print('8. 生成词组码表')
 table码表构词码词典={}
