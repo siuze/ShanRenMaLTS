@@ -50,6 +50,8 @@ local function cjk_comment(input,env)
 					option_.comment = option_.comment .. "〔扩H〕u" .. string.format("%X", code) .. " [15.0 2022]"
 				elseif code == 177977 then
 					option_.comment = option_.comment .. "〔增补〕u" .. string.format("%X", code) .. " [15.0 2022]"
+				elseif code >= 191472 and code <= 192093 then
+					option_.comment = option_.comment .. "〔扩I〕u" .. string.format("%X", code) .. " [15.1 2023]"
 				end
 			end
 			yield(option_)
