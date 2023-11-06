@@ -203,7 +203,7 @@ for i in range(len(单字词典)):
 	字根数=len(全主码)
 	常用码无重位 = -1
 	for i in range(len(常用码)):
-		if 常用码[0:i] not in 已用编码集合:
+		if 常用码[0:i].lower() not in 已用编码集合:
 			常用码无重位 = i
 	单字词典.loc[单字,"常用码无重位"]=常用码无重位
 print(单字词典.head(5))
