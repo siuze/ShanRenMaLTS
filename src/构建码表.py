@@ -4,13 +4,13 @@ import re
 # build_path = '../tmp'
 build_path = 'build'
 #pipreqs . --encoding=utf8 --force
-已用编码集合 = set(())
+已用编码集合 = []
 def 添加已用编码(编码):
 	global 已用编码集合
 	编码 = 编码.lower()
 	# for i in range(len(编码)):
 	# 	已用编码集合.add(编码[0:i+1])
-	已用编码集合.add(编码)
+	已用编码集合.append(编码)
 print("1. 获取字根词典")
 字根词典={}
 for 字根项 in open('data/字根码表.csv', 'r', encoding='utf8'):
@@ -199,26 +199,39 @@ print()
 print("6+.记录无重码位置")
 单字词典.insert(单字词典.shape[1], '常用码无重位',None)#增加一列全息码
 for i in range(len(单字词典)):
-	if i%1000==0:
+	if i%100==0:
 		print(f"{i} {单字}")
 	单字  = 单字词典.iat[i,0]
-	拆分  = 单字词典.iat[i,1]
-	全主码 = 单字词典.iat[i,6]
 	常用码 = 单字词典.iat[i,5]
-	全息码 = 单字词典.iat[i,4]
-	字根数=len(全主码)
+	# 单字  = "的"
+	# 常用码 = "BPDa"
 	常用码无重位 = -1
 	for i in range(len(常用码),0,-1):
+		# print(f"检查{常用码[0:i]}")
 		有重码 = False
-		for 已用编码 in 已用编码集合:
-			if 已用编码.startswith((常用码[0:i]).lower()):
-				有重码 = True
-				break
+		if i == len(常用码):
+			重码数 = 0
+			for 已用编码 in 已用编码集合:
+				if 已用编码.startswith((常用码[0:i]).lower()):
+					# print(f"重码{已用编码}")
+					重码数 +=1
+					if 重码数>1:
+						有重码 = True
+						break
+		else:
+			for 已用编码 in 已用编码集合:
+				if 已用编码.startswith((常用码[0:i]).lower()):
+					# print(f"重码{已用编码}")
+					有重码 = True
+					break
 		if 有重码:
-			常用码无重位 = i+1
-			# print(常用码[0:i+1])
+			# print("有重码")
 			break
+		else:
+			常用码无重位 = i
+			# print(常用码[0:常用码无重位])
 	单字词典.loc[单字,"常用码无重位"]=常用码无重位
+	# break
 print(单字词典.head(5))
 print()
 print("7.打印单字码表")
