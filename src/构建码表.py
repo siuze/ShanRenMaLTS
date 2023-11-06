@@ -203,8 +203,8 @@ for i in range(len(单字词典)):
 		print(f"{i} {单字}")
 	单字  = 单字词典.iat[i,0]
 	常用码 = 单字词典.iat[i,5]
-	# 单字  = "的"
-	# 常用码 = "BPDa"
+	# 单字  = "囊"
+	# 常用码 = "HOSAOOCHYi"
 	常用码无重位 = -1
 	for i in range(len(常用码),0,-1):
 		# print(f"检查{常用码[0:i]}")
@@ -213,13 +213,15 @@ for i in range(len(单字词典)):
 			重码数 = 0
 			for 已用编码 in 已用编码集合:
 				if 已用编码.startswith((常用码[0:i]).lower()):
-					# print(f"重码{已用编码}")
+					# print(f"全长重码{已用编码}")
 					重码数 +=1
 					if 重码数>1:
 						有重码 = True
 						break
 		else:
 			for 已用编码 in 已用编码集合:
+				if 已用编码 == 常用码.lower():
+					continue
 				if 已用编码.startswith((常用码[0:i]).lower()):
 					# print(f"重码{已用编码}")
 					有重码 = True
@@ -229,7 +231,9 @@ for i in range(len(单字词典)):
 			break
 		else:
 			常用码无重位 = i
-			# print(常用码[0:常用码无重位])
+			# print(f"常用码无重位{i}")
+	# if 常用码无重位>0:
+		# print(常用码[0:常用码无重位])
 	单字词典.loc[单字,"常用码无重位"]=常用码无重位
 	# break
 print(单字词典.head(5))
