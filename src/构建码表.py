@@ -4,6 +4,7 @@ import re
 # build_path = '../tmp'
 build_path = 'build'
 #pipreqs . --encoding=utf8 --force
+已用编码集合 = set(())
 print("1. 获取字根词典")
 字根词典={}
 for 字根项 in open('data/字根码表.csv', 'r', encoding='utf8'):
@@ -32,11 +33,11 @@ for 特设码项 in open('data/特设码.csv', 'r', encoding='utf8'):
 print(f"共获取{len(短特设码词典)}个短特设码，{len(长特设码词典)}个长特设码\n")
 
 
-print("4. 生成标准码、常用码")
-单字词典.insert(单字词典.shape[1], '标准码',None)#增加一列标准码
+print("4. 生成全息码、常用码")
+单字词典.insert(单字词典.shape[1], '全息码',None)#增加一列全息码
 单字词典.insert(单字词典.shape[1], '常用码',None)#增加一列常用码
 单字词典.insert(单字词典.shape[1], '全主码',None)#增加一列全主码
-已使用的标准码集=set(())
+已使用的全息码集=set(())
 已使用的常用码集=set(())
 for i in range(len(单字词典)):
 	单字  = 单字词典.iat[i,0]
@@ -44,18 +45,18 @@ for i in range(len(单字词典)):
 	if i%5000==0:
 		print(f"{i} {单字} {拆分}")
 	字根数=len(拆分)
-	标准码=''
+	全息码=''
 	全主码=''
 	if 字根数 == 1:#单字根字
 		字根=字根词典[拆分]
-		标准码=字根["code"] #字根码
-		全主码=标准码[0]
+		全息码=字根["code"] #字根码
+		全主码=全息码[0]
 	else:#多字根字
 		for 字根 in 拆分:
-			标准码+=字根词典[字根]["code"][:2]#标准码：依次取每个字根的主码和该字根第一个小码
+			全息码+=字根词典[字根]["code"][:2]#全息码：依次取每个字根的主码和该字根第一个小码
 			全主码+=字根词典[字根]["code"][0]
-	已使用的标准码集.add(标准码.lower())
-	单字词典.loc[单字,"标准码"]=标准码
+	已使用的全息码集.add(全息码.lower())
+	单字词典.loc[单字,"全息码"]=全息码
 	单字词典.loc[单字,"全主码"]=全主码
 	常用码=''
 	if 字根数 > 1:
@@ -73,6 +74,7 @@ for i in range(len(单字词典)):
 		elif 字根数>5:
 				常用码+=字根词典[拆分[-1]]["code"][1:2]#再取尾字根小码
 		已使用的常用码集.add(常用码.lower())
+		已用编码集合.add(常用码.lower())
 	单字词典.loc[单字,"常用码"]=常用码
 print(单字词典.head(5))
 print()
@@ -87,17 +89,20 @@ for 字根,item in 字根词典.items():
 	if 扩展特设码!=None and 扩展特设码!='':
 		单字词典.loc[字根,"长特设码"]=扩展特设码
 		已使用的快速码集.add(扩展特设码.lower())
+		已用编码集合.add(扩展特设码.lower())
 		有扩展特设码的字根.add(字根)
 #1码长特设码,同时也参与快速码生成和查重
 for 单字,短特设码 in 短特设码词典.items():
 		单字词典.loc[[单字],["短特设码"]]=短特设码
 		已使用的快速码集.add((短特设码.lower()))
+		已用编码集合.add((短特设码.lower()))
 单字词典.loc[单字词典.短特设码.isna(),"短特设码"]=''
 # 其余码长特设码，这部分字不再生成快速码，但是参与查重
 有长特设码的单字=set(())
 for 单字,长特设码 in 长特设码词典.items():
 		单字词典.loc[单字,"长特设码"]=长特设码
 		已使用的快速码集.add((长特设码.lower()))
+		已用编码集合.add((长特设码.lower()))
 		有长特设码的单字.add(单字)
 单字词典.loc[单字词典.长特设码.isna(),"长特设码"]=''
 print(单字词典.head(5))
@@ -119,7 +124,7 @@ for i in range(len(单字词典)):
 	拆分  = 单字词典.iat[i,1]
 	全主码 = 单字词典.iat[i,6]
 	常用码 = 单字词典.iat[i,5]
-	标准码 = 单字词典.iat[i,4]
+	全息码 = 单字词典.iat[i,4]
 	字根数=len(全主码)
 	快速码= 常用码[:2]
 	剩余常用码 = 常用码[2:]
@@ -127,6 +132,7 @@ for i in range(len(单字词典)):
 	while (len(剩余常用码)>0):
 		if 快速码.lower() not in 已使用的快速码集:
 			已使用的快速码集.add(快速码.lower())
+			已用编码集合.add(快速码.lower())
 			单字词典.loc[单字,"快速码"]=快速码
 			快速码生成成功=True
 			break
@@ -143,7 +149,7 @@ print(兼容拆分.head(5))
 print(兼容拆分.shape)
 print()
 print("6++. 生成兼容拆分码")
-兼容拆分.insert(兼容拆分.shape[1], '标准码',None)#增加一列标准码
+兼容拆分.insert(兼容拆分.shape[1], '全息码',None)#增加一列全息码
 兼容拆分.insert(兼容拆分.shape[1], '全主码',None)#增加一列全主码
 兼容拆分.insert(兼容拆分.shape[1], '兼容码',None)#增加一列兼容码
 for i in range(len(兼容拆分)):
@@ -152,17 +158,17 @@ for i in range(len(兼容拆分)):
 	if i%5000==0:
 		print(f"{i} {单字} {拆分}")
 	字根数=len(拆分)
-	标准码=''
+	全息码=''
 	全主码=''
 	if 字根数 == 1:#单字根字
 		字根=字根词典[拆分]
-		标准码=字根["code"] #字根码
-		全主码=标准码[0]
+		全息码=字根["code"] #字根码
+		全主码=全息码[0]
 	else:#多字根字
 		for 字根 in 拆分:
-			标准码+=字根词典[字根]["code"][:2]#标准码：依次取每个字根的主码和该字根第一个小码
+			全息码+=字根词典[字根]["code"][:2]#全息码：依次取每个字根的主码和该字根第一个小码
 			全主码+=字根词典[字根]["code"][0]
-	兼容拆分.loc[单字,"标准码"]=标准码
+	兼容拆分.loc[单字,"全息码"]=全息码
 	兼容拆分.loc[单字,"全主码"]=全主码
 	兼容码=''
 	if 字根数 > 1:
@@ -180,11 +186,28 @@ for i in range(len(兼容拆分)):
 		elif 字根数>5:
 				兼容码+=字根词典[拆分[-1]]["code"][1:2]#再取尾字根小码
 	兼容拆分.loc[单字,"兼容码"]=兼容码
+	已用编码集合.add(兼容码.lower())
 print(兼容拆分.head(5))
 print()
 
-
-
+print("6+.记录无重码位置")
+单字词典.insert(单字词典.shape[1], '常用码无重位',None)#增加一列全息码
+for i in range(len(单字词典)):
+	if i%5000==0:
+		print(f"{i} {单字}")
+	单字  = 单字词典.iat[i,0]
+	拆分  = 单字词典.iat[i,1]
+	全主码 = 单字词典.iat[i,6]
+	常用码 = 单字词典.iat[i,5]
+	全息码 = 单字词典.iat[i,4]
+	字根数=len(全主码)
+	常用码无重位 = -1
+	for i in range(len(常用码)):
+		if 常用码[0:i] not in 已用编码集合:
+			常用码无重位 = i
+	单字词典.loc[单字,"常用码无重位"]=常用码无重位
+print(单字词典.head(5))
+print()
 print("7.打印单字码表")
 import math
 单字词典.to_csv(f"./{build_path}/单字词典.csv",encoding='utf8',index=None,sep='\t')
@@ -195,7 +218,7 @@ for i in range(len(单字词典)):
 	拆分  = 单字词典.iat[i,1]
 	全主码 = 单字词典.iat[i,6]
 	常用码 = 单字词典.iat[i,5]
-	标准码 = 单字词典.iat[i,4]
+	全息码 = 单字词典.iat[i,4]
 	快速码= 单字词典.iat[i,9]
 	短特设码= 单字词典.iat[i,7]
 	长特设码= 单字词典.iat[i,8]
@@ -208,8 +231,8 @@ for i in range(len(单字词典)):
 			tmp.append([单字,快速码,2,词库权重])
 	if 常用码 !=None and 常用码 != '' and 常用码!=短特设码 and 常用码!=快速码:
 			tmp.append([单字,常用码,3,词库权重])
-	if len(拆分)==1 and 标准码 !=None and 标准码 != '' and 标准码!=短特设码 and 标准码!=快速码 and 标准码!=常用码:
-			tmp.append([单字,标准码,4,词库权重])
+	if len(拆分)==1 and 全息码 !=None and 全息码 != '' and 全息码!=短特设码 and 全息码!=快速码 and 全息码!=常用码:
+			tmp.append([单字,全息码,4,词库权重])
 
 兼容拆分.to_csv(f"./{build_path}/兼容拆分.csv",encoding='utf8',index=None,sep='\t')
 for i in range(len(兼容拆分)):
@@ -252,7 +275,7 @@ for i in range(len(单字词典)):
 	拆分  = 单字词典.iat[i,1]
 	全主码 = 单字词典.iat[i,6]
 	常用码 = 单字词典.iat[i,5]
-	标准码 = 单字词典.iat[i,4]
+	全息码 = 单字词典.iat[i,4]
 	快速码= 单字词典.iat[i,9]
 	短特设码= 单字词典.iat[i,7]
 	长特设码= 单字词典.iat[i,8]
@@ -261,8 +284,8 @@ for i in range(len(单字词典)):
 		script码表构词码.append(长特设码)	#如果特设码
 	if 常用码!='' and 常用码!=None:
 		script码表构词码.append(常用码)
-	elif re.match(f"^{标准码.lower()}",长特设码.lower()) == None:
-		script码表构词码.append(标准码)
+	elif re.match(f"^{全息码.lower()}",长特设码.lower()) == None:
+		script码表构词码.append(全息码)
 	script码表构词码词典[单字]=script码表构词码
 script码表构词码词典["Q"]=['Q']
 script码表构词码词典["W"]=['W']
