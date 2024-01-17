@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[2226],{7032:e=>{e.exports=JSON.parse('{"permalink":"/ShanRenMaLTS/blog/tags/\u7fa4","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

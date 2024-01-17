@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50" xml:space="preserve">
+<g transform="translate(-250,-1000)">
+<path d="M264.202,1028.204c-0.165-0.612-0.253-1.257-0.253-1.923c0-4.066,3.296-7.363,7.363-7.363
+			c3.736,0,6.824,2.786,7.299,6.395" fill="none" stroke="#000000"></path>
+<path d="M264.343,1028.657c0,0,0.734,7.222,10.691,15.587h3.871c0,0,8.228-1.797,8.228-13.896
+			c0-12.099-8.779-7.189-0.691-15.278l1.096-1.096l-2.247-2.569l-4.608,4.426c0,0-0.875,0.854-0.875,4.057" fill="none" stroke="#000000"></path>
+<line fill="none" stroke="#000000" x1="278.145" x2="278.676" y1="1033.875" y2="1026.281"></line>
+<path d="M273.938,1019.4c0,0,1.244-2.946,6.194-2.396" fill="none" stroke="#000000"></path>
+<path d="M271.041,1018.924l1.25-10.77c0,0,2.396-1.981,4.146-0.23v9.416" fill="none" stroke="#000000"></path>
+<polyline fill="none" points="268.088,1019.66 263.671,1012.671 267.773,1009.676 271.588,1014.207 		" stroke="#000000"></polyline>
+</g></svg>
