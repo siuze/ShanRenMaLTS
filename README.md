@@ -1,6 +1,10 @@
 ![Social Preview](https://user-images.githubusercontent.com/54578647/217300073-75a2cd02-756e-45ad-a272-5e32178a51dc.png)
 
-山人码LTS是山人全息码输入方案的长期支持版。
+<h1 align="center">
+  <a href="https://siuze.github.io/ShanRenMaLTS" target="_blank">山人码LTS</a>
+</h1>
+
+[山人码LTS](https://siuze.github.io/ShanRenMaLTS)是山人全息码输入方案的长期支持版。
 
 该方案继承了谢振斌、持双山、疏影孤桐、五磅兔、张仓等前辈的大部分山人码方案设计，单字码表已覆盖Unicode15.0内9万字余汉字
 
@@ -10,10 +14,12 @@
 - 字根与构字成词方法长期稳定，不做大大幅度改动
 - 对提交的码表更新建议与错误反馈会及时处理
 
-## 使用方法/功能说明/编码与输入规则
+## [安装方法/使用说明/输入规则/学习教程/在线体验/打字练习](https://siuze.github.io/ShanRenMaLTS/)
 
-请参考[项目文档](https://siuze.github.io/ShanRenMaLTS/)主页
-
+### **都请点进[项目文档](https://siuze.github.io/ShanRenMaLTS/)主页查看**
+  
+    
+	  
 
 ## 项目更新日志：
 
