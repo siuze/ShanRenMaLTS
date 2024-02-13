@@ -14,7 +14,7 @@ def 添加已用编码(编码):
 print("1. 获取字根词典")
 字根词典={}
 for 字根项 in open('data/字根码表.csv', 'r', encoding='utf8'):
-	字根项 = re.match(r'(.)\t([A-Za-z]+)\t([A-Za-z]*)\n', 字根项)
+	字根项 = re.match(r'(.)\t([A-Za-z]+)\t([A-Za-z]*)\t.*\n', 字根项)
 	if 字根项:
 		字根词典[字根项.group(1)] = {"code":字根项.group(2),"扩展特设码":字根项.group(3)}
 print(f"共获取{len(字根词典)}个字根\n")
