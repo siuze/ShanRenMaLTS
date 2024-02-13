@@ -6,8 +6,8 @@ local function cjk_comment(input,env)
 				local code =  utf8.codepoint(str)
 				if (code >= 0xe000 and code <= 0xf8ff) or (code >= 0xf0000 and code <= 0xffffd) or (code >= 0x100000 and code <= 0x10fffd) then 
 					option_.comment = option_.comment .. "〔PUA〕u" .. string.format("%X", code)
-				-- elseif code >= 0x4e00 and code <= 0x9f5a then
-				-- 	option_.comment = option_.comment .. "〔基本区〕u" .. string.format("%X", code) .. ""
+				elseif code >= 0x4e00 and code <= 0x9f5a then
+					-- option_.comment = option_.comment .. "〔基本区〕u" .. string.format("%X", code) .. ""
 				elseif code >= 0x9FA6 and code <= 0x9FBB then
 					option_.comment = option_.comment .. "〔基本区补充〕u" .. string.format("%X", code) .. "[4.1 2003]"
 				elseif code >= 0x9FBC and code <= 0x9FC3 then
@@ -72,6 +72,14 @@ local function cjk_comment(input,env)
 					option_.comment = option_.comment .. "〔注音扩展〕u" .. string.format("%X", code) .. "" 
 				elseif code >= 0x3000 and code <= 0x303F then
 					option_.comment = option_.comment .. "〔标点符号〕u" .. string.format("%X", code) .. ""
+				elseif code >= 0x3040 and code <= 0x309F then
+					option_.comment = option_.comment .. "〔平假名〕u" .. string.format("%X", code) .. ""
+				elseif code >= 0x30A0 and code <= 0x30FF then
+					option_.comment = option_.comment .. "〔片假名〕u" .. string.format("%X", code) .. ""
+				elseif code >= 0x3130 and code <= 0x318F then
+					option_.comment = option_.comment .. "〔谚文兼容〕u" .. string.format("%X", code) .. ""
+				else 
+					option_.comment = option_.comment .. "〔其他区〕u" .. string.format("%X", code) .. ""
 				end
 			end
 			yield(option_)
