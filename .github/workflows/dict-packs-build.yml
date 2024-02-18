@@ -13,7 +13,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [g++]
+        compiler: [clang]
+        include:
+          - compiler: clang
+            cxx_compiler: clang++
+    env:
+      CC: ${{ matrix.compiler }}
+      CXX: ${{ matrix.cxx_compiler }}
+      CMAKE_GENERATOR: Ninja
     steps:
       - name: Checkout last commit
         uses: actions/checkout@v3
