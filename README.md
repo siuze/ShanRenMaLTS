@@ -22,6 +22,10 @@
 	  
 
 ## 项目更新日志：
+**2024-02-19**
+> 1. 修正少量编码重复与错漏
+> 2. 修正、优化CJK扩展区提示插件
+> 3. 更新siuze/librime版本，修复长词联想问题 [#38](https://github.com/siuze/ShanRenMaLTS/issues/38)，实现用户词典内的长词联想 [#14](https://github.com/siuze/ShanRenMaLTS/discussions/14)
 
 **2023-09-21**
 > 1. 同步持双山前辈的码表，单字更新扩展I区，调整部分拆分；
