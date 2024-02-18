@@ -459,7 +459,7 @@ def 生成编码(构词码词典,待处理词组,已生成编码表,编码分隔
     return 生成编码(构词码词典,待处理词组[1:],新增编码表,编码分隔符)
 
 def 生成词库编码(词库文件,码表文件,写入方式):
-	f=open(码表文件,写入方式,encoding='utf8')
+	新码表内容 = ''
 	cnt=0
 	print(f"读取 {词库文件}")
 	for 词组项 in open(词库文件,'r',encoding='utf8'):
@@ -488,10 +488,16 @@ def 生成词库编码(词库文件,码表文件,写入方式):
 				continue
 			if 词组编码[-1]==' ':
 				词组编码=词组编码[:-1]
-			f.write(f"{词组}\t{词组编码.lower()}\t{词组权重}\n")
-	f.close()
+			新码表内容 += f"{词组}\t{词组编码.lower()}\t{词组权重}\n"
 def 生成并写入(词库路径,码表路径,码表名):
-	生成词库编码(词库路径,码表路径,'w+')
+	旧码表内容 = None #不包含文件头
+	with open(码表路径, 'r', encoding='utf8') as f:
+		旧码表内容 = f.read()
+		旧码表内容 = 旧码表内容[旧码表内容.find('\n...\n')+5:]
+	新码表内容 = 生成词库编码(词库路径,码表路径,'w+')
+	if 旧码表内容 == 新码表内容:
+		print(f"{码表名} 新旧码表内容相同，不需要更新")
+		return
 	timenow = datetime.now(UTC8)
 	timenow = timenow.strftime("%Y-%m-%d %H:%M:%S")
 	码表文件头 = f'# 山人码LTS词库码表\n# encoding: utf-8\n---\nname: {码表名}\nversion: "{timenow}"\nsort: by_weight\nuse_preset_vocabulary: false\ncolumns:\n  - text #字词\n  - code #编码\n  - weight #权重\n...\n'
