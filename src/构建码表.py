@@ -275,18 +275,29 @@ for i in range(len(兼容拆分)):
 码表 = pd.DataFrame(columns=['单字', '编码', '编码类别', '词库权重'], data=tmp)
 码表['统一小写编码'] = 码表['编码'].str.lower()
 码表.sort_values(by=['统一小写编码','词库权重','编码类别','单字'], ascending=[ True, False,True,True], inplace=True)
-码表.to_csv(f"./{build_path}/ShanRenMaLTS.words.dict.yaml", encoding='utf8', index=None, header=False, sep='\t', columns=['单字','统一小写编码','词库权重'])
+单字码表路径 = f"./{build_path}/ShanRenMaLTS.words.dict.yaml"
+旧码表内容 = None #不包含文件头
+with open(单字码表路径, 'r', encoding='utf8') as f:
+	旧码表内容 = f.read()
+	旧码表内容 = 旧码表内容[旧码表内容.find('\n...\n')+5:]
+
+码表.to_csv(单字码表路径, encoding='utf8', index=None, header=False, sep='\t', columns=['单字','统一小写编码','词库权重'])
 from datetime import datetime
 import pytz
 UTC8 = pytz.timezone("Asia/Shanghai") 
 timenow = datetime.now(UTC8)
 timenow = timenow.strftime("%Y-%m-%d %H:%M:%S")
-码表文件头 = f'# 山人码LTS单字码表\n# encoding: utf-8\n---\nname: ShanRenMaLTS.words\nversion: "{timenow}"\nsort: by_weight\nuse_preset_vocabulary: false\ncolumns:\n  - text #字词\n  - code #编码\n  - weight #权重\n...\n'
-with open(f"./{build_path}/ShanRenMaLTS.words.dict.yaml", "r+",encoding='utf8') as f:
-	old = f.read()
-	f.seek(0)
-	f.write(码表文件头)
-	f.write(old)
+
+新码表内容 = None
+with open(单字码表路径, 'r', encoding='utf8') as f:
+	新码表内容 = f.read()
+if 旧码表内容 == 新码表内容:
+	print(f"{单字码表路径} 新旧码表内容相同，不需要更新")
+else:
+	码表文件头 = f'# 山人码LTS单字码表\n# encoding: utf-8\n---\nname: ShanRenMaLTS.words\nversion: "{timenow}"\nsort: by_weight\nuse_preset_vocabulary: false\ncolumns:\n  - text #字词\n  - code #编码\n  - weight #权重\n...\n'
+	with open(单字码表路径, "w",encoding='utf8') as f:
+		f.write(码表文件头)
+		f.write(新码表内容)
 
 
 
@@ -489,6 +500,7 @@ def 生成词库编码(词库文件,码表文件,写入方式):
 			if 词组编码[-1]==' ':
 				词组编码=词组编码[:-1]
 			新码表内容 += f"{词组}\t{词组编码.lower()}\t{词组权重}\n"
+	return 新码表内容
 def 生成并写入(词库路径,码表路径,码表名):
 	旧码表内容 = None #不包含文件头
 	with open(码表路径, 'r', encoding='utf8') as f:
@@ -501,11 +513,9 @@ def 生成并写入(词库路径,码表路径,码表名):
 	timenow = datetime.now(UTC8)
 	timenow = timenow.strftime("%Y-%m-%d %H:%M:%S")
 	码表文件头 = f'# 山人码LTS词库码表\n# encoding: utf-8\n---\nname: {码表名}\nversion: "{timenow}"\nsort: by_weight\nuse_preset_vocabulary: false\ncolumns:\n  - text #字词\n  - code #编码\n  - weight #权重\n...\n'
-	with open(码表路径, "r+",encoding='utf8') as f:
-		old = f.read()
-		f.seek(0)
+	with open(码表路径, "w",encoding='utf8') as f:
 		f.write(码表文件头)
-		f.write(old)
+		f.write(新码表内容)
 生成并写入("./data/核心词库.csv",f"./{build_path}/ShanRenMaLTS.phrases_CORE.dict.yaml",'ShanRenMaLTS.phrases_CORE')
 生成并写入("./data/扩展词库0.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT01.dict.yaml",'ShanRenMaLTS.phrases_EXT01')
 生成并写入("./data/扩展词库1.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT02.dict.yaml",'ShanRenMaLTS.phrases_EXT02')
