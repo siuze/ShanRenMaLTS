@@ -31,9 +31,9 @@ jobs:
         run: |
           git clone --recursive https://github.com/siuze/librime.git
           cd librime
+          sudo apt install -y libunwind-dev build-essential cmake clang
           sudo ./action-install-linux.sh
-          sudo make
-          sudo make install
+          sudo make test
       - name: 导入方案配置并编译词典扩展包
         run: |
           sudo cp -a ./src/. ./librime/build/bin
