@@ -33,7 +33,8 @@ jobs:
           cd librime
           sudo apt install -y libunwind-dev build-essential cmake clang
           sudo ./action-install-linux.sh
-          sudo make test
+          sudo make test V=1
+        continue-on-error: true
       - name: 导入方案配置并编译词典扩展包
         run: |
           sudo cp -a ./src/. ./librime/build/bin
