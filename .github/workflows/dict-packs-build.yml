@@ -27,13 +27,17 @@ jobs:
         with:
           repository: ${{ inputs.repository }}
           submodules: recursive
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
       - name: 导入librime仓库并安装
         run: |
           git clone --recursive https://github.com/siuze/librime.git
           cd librime
           sudo apt install -y libunwind-dev build-essential cmake clang
           sudo ./action-install-linux.sh
-          sudo make test V=1 -d
+          sudo make test V=1
         continue-on-error: true
       - name: 导入方案配置并编译词典扩展包
         run: |
