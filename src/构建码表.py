@@ -277,10 +277,10 @@ for i in range(len(兼容拆分)):
 码表.sort_values(by=['统一小写编码','词库权重','编码类别','单字'], ascending=[ True, False,True,True], inplace=True)
 单字码表路径 = f"./{build_path}/ShanRenMaLTS.words.dict.yaml"
 旧码表内容 = None #不包含文件头
+旧码表全文 = None
 with open(单字码表路径, 'r', encoding='utf8') as f:
-	旧码表内容 = f.read()
-	旧码表内容 = 旧码表内容[旧码表内容.find('\n...\n')+5:]
-
+	旧码表全文 = f.read()
+	旧码表内容 = 旧码表全文[旧码表全文.find('\n...\n')+5:]
 码表.to_csv(单字码表路径, encoding='utf8', index=None, header=False, sep='\t', columns=['单字','统一小写编码','词库权重'])
 from datetime import datetime
 import pytz
@@ -293,6 +293,8 @@ with open(单字码表路径, 'r', encoding='utf8') as f:
 	新码表内容 = f.read()
 if 旧码表内容 == 新码表内容:
 	print(f"{单字码表路径} 新旧码表内容相同，不需要更新")
+	with open(单字码表路径, "w",encoding='utf8') as f:
+		f.write(旧码表全文)
 else:
 	码表文件头 = f'# 山人码LTS单字码表\n# encoding: utf-8\n---\nname: ShanRenMaLTS.words\nversion: "{timenow}"\nsort: by_weight\nuse_preset_vocabulary: false\ncolumns:\n  - text #字词\n  - code #编码\n  - weight #权重\n...\n'
 	with open(单字码表路径, "w",encoding='utf8') as f:
