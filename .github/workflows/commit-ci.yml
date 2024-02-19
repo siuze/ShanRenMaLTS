@@ -31,7 +31,7 @@ jobs:
       - name: 构建码表
         run: | 
           cd src
-          python 构建码表.py
+          python -u 构建码表.py
 
       - name: 检查文件变化
         id: verify_diff
