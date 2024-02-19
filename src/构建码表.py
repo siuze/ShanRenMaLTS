@@ -9,15 +9,12 @@ import pytz
 # build_path = '../tmp'
 build_path = "build"
 # pipreqs . --encoding=utf8 --force
-已用编码集合 = []
+编码计数字典 = {}
 
 
 def 添加已用编码(编码):
-	global 已用编码集合
 	编码 = 编码.lower()
-	# for i in range(len(编码)):
-	# 	已用编码集合.add(编码[0:i+1])
-	已用编码集合.append(编码)
+	编码计数字典[编码] = (编码计数字典[编码][0] + 1,) if (编码 in 编码计数字典) else (1,)
 
 
 print("1. 获取字根词典")
@@ -207,7 +204,7 @@ print()
 
 print("6++++.记录无重码位置")
 单字词典.insert(单字词典.shape[1], "常用码无重位", None)  # 增加一列常用码无重位
-已用编码字典树 = marisa_trie.Trie(已用编码集合)
+已用编码字典树 = marisa_trie.RecordTrie("<H", zip(编码计数字典.keys(), 编码计数字典.values()))
 for i in range(len(单字词典)):
 	if i % 5000 == 0:
 		print(f"{i} {单字}")
@@ -217,34 +214,24 @@ for i in range(len(单字词典)):
 	# 常用码 = "HOSAOOCHYi"
 	常用码无重位 = -1
 	for i in range(len(常用码), 0, -1):
-		# print(f"检查{常用码[0:i]}")
 		有重码 = False
-		# if i == len(常用码):
-		if len(已用编码字典树.prefixes(常用码[0:i].lower())) > 1:
-			有重码 = True
-		# else:
-		# 	已用编码字典树.prefixes(常用码[0:i].lower())
-		# 	for 已用编码 in 已用编码集合:
-		# 		if 已用编码 == 常用码.lower():
-		# 			continue
-		# 		if 已用编码.startswith((常用码[0:i]).lower()):
-		# 			# print(f"重码{已用编码}")
-		# 			有重码 = True
-		# 			break
-		if 有重码:
-			# print("有重码")
-			break
+		if i == len(常用码):
+			查询结果 = 已用编码字典树.get(常用码.lower(), None)
+			if 查询结果 and 查询结果[0][0] > 1:
+				break
+			else:
+				常用码无重位 = i
 		else:
-			常用码无重位 = i
-			# print(f"常用码无重位{i}")
-	# if 常用码无重位>0:
-	# print(常用码[0:常用码无重位])
+			if len(已用编码字典树.keys(常用码[0:i].lower())) > 1:
+				有重码 = True
+				break
+			else:
+				常用码无重位 = i
 	单字词典.loc[单字, "常用码无重位"] = 常用码无重位
-	# break
 print(单字词典.head(5))
 print()
 print("7.打印单字码表")
-单字词典.to_csv(f"./{build_path}/单字词典.csv", encoding="utf8", index=None, sep="\t", line_terminator="\n")
+单字词典.to_csv(f"./{build_path}/单字词典.csv", encoding="utf8", index=None, sep="\t", lineterminator="\n")
 tmp = []
 for i in range(len(单字词典)):
 	单字 = 单字词典.iat[i, 0]
@@ -268,7 +255,7 @@ for i in range(len(单字词典)):
 	if len(拆分) == 1 and 全息码 is not None and 全息码 != "" and 全息码 != 短特设码 and 全息码 != 快速码 and 全息码 != 常用码:
 		tmp.append([单字, 全息码, 4, 词库权重])
 
-兼容拆分.to_csv(f"./{build_path}/兼容拆分.csv", encoding="utf8", index=None, sep="\t", line_terminator="\n")
+兼容拆分.to_csv(f"./{build_path}/兼容拆分.csv", encoding="utf8", index=None, sep="\t", lineterminator="\n")
 for i in range(len(兼容拆分)):
 	单字 = 兼容拆分.iat[i, 0]
 	词库权重 = math.ceil(兼容拆分.iat[i, 3])
@@ -285,7 +272,7 @@ for i in range(len(兼容拆分)):
 with open(单字码表路径, "r", encoding="utf8") as f:
 	旧码表全文 = f.read()
 	旧码表内容 = 旧码表全文[旧码表全文.find("\n...\n") + 5 :]
-码表.to_csv(单字码表路径, encoding="utf8", index=None, header=False, sep="\t", columns=["单字", "统一小写编码", "词库权重"], line_terminator="\n")
+码表.to_csv(单字码表路径, encoding="utf8", index=None, header=False, sep="\t", columns=["单字", "统一小写编码", "词库权重"], lineterminator="\n")
 
 UTC8 = pytz.timezone("Asia/Shanghai")
 timenow = datetime.now(UTC8)
