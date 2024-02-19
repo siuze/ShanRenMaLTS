@@ -219,14 +219,11 @@ for i in range(len(单字词典)):
 			查询结果 = 已用编码字典树.get(常用码.lower(), None)
 			if 查询结果 and 查询结果[0][0] > 1:
 				break
-			else:
-				常用码无重位 = i
+		if len(已用编码字典树.keys(常用码[0:i].lower())) > 1:
+			有重码 = True
+			break
 		else:
-			if len(已用编码字典树.keys(常用码[0:i].lower())) > 1:
-				有重码 = True
-				break
-			else:
-				常用码无重位 = i
+			常用码无重位 = i
 	单字词典.loc[单字, "常用码无重位"] = 常用码无重位
 print(单字词典.head(5))
 print()
