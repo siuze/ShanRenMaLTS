@@ -1,0 +1,33 @@
+# encoding: utf-8
+
+schema:
+  schema_id: ShanRenMaLTS.reverse
+  name: "山人码LTS反查词典生成方案"
+  description:
+    生成反查词典的方案文件
+  dependencies: #依赖袖珍简化字拼音进行反查，袖珍简化字拼音在rime的win发行版小狼毫下是自带的
+    - pinyin_simp
+
+engine:
+  translators:
+    - script_translator
+    - script_translator@pinyin
+  filters:
+    - reverse_lookup_filter@reverse_lookup
+speller:
+  algebra:
+    # - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
+    - fuzz/^(\w)(\w).*$/\L$1\L$2/
+    - fuzz/^(\w)(\w)(\w).*$/\L$1\L$2\L$3/
+    - fuzz/^(\w)(\w)(\w)(\w).*$/\L$1\L$2\L$3\L$4/
+  alphabet: abcdefghijklmnopqrstuvwxyz
+translator:
+  dictionary: ShanRenMaLTS.reverse
+pinyin: #拼音副翻譯器
+  tag: pinyin
+  dictionary: pinyin_simp #使用袖珍简化字拼音进行反查
+  prefix: "`"
+  tips: 〔拼音反查〕
+reverse_lookup:
+     tags: [pinyin]
+     dictionary: ShanRenMaLTS.reverse

@@ -45,8 +45,12 @@ jobs:
           cd ./librime/build/bin/
           sudo mv build/* .
           sudo mv create_pack/* .
+          sudo mv create_reverse/* .
           sudo mv release/* .
           ./rime_deployer --compile ShanRenMaLTS.creat_pack.schema.yaml
+          ./rime_deployer --compile ShanRenMaLTS.reverse.schema.yaml
+          cd build
+          ls
       - name: 整理方案配置
         run: |
           mkdir build
@@ -56,6 +60,7 @@ jobs:
           cd build
           mkdir build
           sudo cp -rf ../librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin build
+          sudo cp -rf ../librime/build/bin/build/ShanRenMaLTS.reverse.reverse.bin build
       - name: 保存构件
         uses: actions/upload-artifact@v3
         with:
