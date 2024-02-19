@@ -518,7 +518,7 @@ def 生成并写入(词库路径,码表路径,码表名):
 	with open(码表路径, "w",encoding='utf8') as f:
 		f.write(码表文件头)
 		f.write(新码表内容)
-生成并写入("./data/反查词库.csv",f"./{build_path}/ShanRenMaLTS.create_reverse.dict.yaml",'ShanRenMaLTS.create_reverse')
+生成并写入("./data/反查词库.csv",f"./{build_path}/ShanRenMaLTS.reverse.dict.yaml",'ShanRenMaLTS.reverse')
 生成并写入("./data/核心词库.csv",f"./{build_path}/ShanRenMaLTS.phrases_CORE.dict.yaml",'ShanRenMaLTS.phrases_CORE')
 生成并写入("./data/扩展词库0.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT01.dict.yaml",'ShanRenMaLTS.phrases_EXT01')
 生成并写入("./data/扩展词库1.csv",f"./{build_path}/ShanRenMaLTS.phrases_EXT02.dict.yaml",'ShanRenMaLTS.phrases_EXT02')
