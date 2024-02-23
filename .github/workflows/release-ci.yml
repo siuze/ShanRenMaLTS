@@ -7,17 +7,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  dict-build:
+    uses: ./.github/workflows/commit-ci.yml
+
+  packs-build:
+    needs: dict-build
     uses: ./.github/workflows/dict-packs-build.yml
 
   release:
-    needs: build
+    needs: [dict-build, packs-build]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: 获取构件
-        uses: actions/download-artifact@v3
+      - name: 导入构件
+        uses: actions/download-artifact@v4
         with:
           name: ShanRenMaLTS-Win-Release
           path: ./Release/build

@@ -23,14 +23,16 @@ jobs:
       CMAKE_GENERATOR: Ninja
     steps:
       - name: Checkout last commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ inputs.repository }}
           submodules: recursive
+
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 10
+
       - name: 导入librime仓库并安装
         run: |
           git clone --recursive https://github.com/siuze/librime.git
@@ -39,6 +41,13 @@ jobs:
           sudo ./action-install-linux.sh
           sudo make test V=1
         continue-on-error: true
+
+      - name: 导入dict-build构件
+        uses: actions/download-artifact@v4
+        with:
+          name: ShanRenMaLTS-dict
+          path: ./src/build
+
       - name: 导入方案配置并编译词典扩展包
         run: |
           sudo cp -a ./src/. ./librime/build/bin
@@ -51,6 +60,7 @@ jobs:
           ./rime_deployer --compile ShanRenMaLTS.reverse.schema.yaml
           cd build
           ls
+
       - name: 整理方案配置
         run: |
           mkdir build
@@ -61,8 +71,9 @@ jobs:
           mkdir build
           sudo cp -rf ../librime/build/bin/build/ShanRenMaLTS.phrases*.table.bin build
           sudo cp -rf ../librime/build/bin/build/ShanRenMaLTS.reverse.reverse.bin build
-      - name: 保存构件
-        uses: actions/upload-artifact@v3
+
+      - name: 上传构件
+        uses: actions/upload-artifact@v4
         with:
           name: ShanRenMaLTS-Win-Release
           path: ./build/

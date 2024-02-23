@@ -1,33 +1,32 @@
 name: 生成码表
 
 on:
-  # push:
-    # branches:
-    #   - master
-    # paths:
-    #   - 'src/**'
-    #   - '.github/workflows/**'
-  # pull_request:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
+      - '.github/workflows/**'
+  pull_request:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
       contents: write
     steps:
       - name: 检查分支
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: 安装 Python 3.9
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.9
 
-      - name: 安装模块
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 安装Python依赖包
         run: |
           cd src
           pip install -r requirements.txt
@@ -37,30 +36,17 @@ jobs:
           cd src
           python -u 构建码表.py
 
-      # - name: 检查文件变化
-      #   id: verify_diff
-      #   run: |
-      #     git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
-      # - name: 暂存提交
-      #   if: steps.verify_diff.outputs.changed == 'true'
-      #   run: |
-      #     git config --global user.name 'siuze'
-      #     git config --global user.email 'ieksiuze@gmail.com'
-      #     export TZ='Asia/Shanghai'
-      #     git add .
-      #     git commit -m "自动构建码表" -a
-      # - name: 推送
-      #   if: steps.verify_diff.outputs.changed == 'true'
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-
-
-      - name: 自动推送
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: 上传构件
+        uses: actions/upload-artifact@v4
         with:
-          commit_message: 自动构建码表
-          commit_user_email: ieksiuze@gmail.com
-          commit_user_name: siuze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: ShanRenMaLTS-dict
+          path: ./src/build/
+
+      # - name: 自动推送
+      #   uses: stefanzweifel/git-auto-commit-action@v5
+      #   with:
+      #     commit_message: 自动构建码表
+      #     commit_user_email: ieksiuze@gmail.com
+      #     commit_user_name: siuze
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

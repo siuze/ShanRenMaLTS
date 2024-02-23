@@ -9,6 +9,8 @@ import pytz
 
 # build_path = '../tmp'
 build_path = "build"
+if not os.path.exists(build_path):
+	os.makedirs(build_path)
 # pipreqs . --encoding=utf8 --force
 编码计数字典 = {}
 
@@ -267,9 +269,10 @@ for i in range(len(兼容拆分)):
 单字码表路径 = f"./{build_path}/ShanRenMaLTS.words.dict.yaml"
 旧码表内容 = None  # 不包含文件头
 旧码表全文 = None
-with open(单字码表路径, "r", encoding="utf8") as f:
-	旧码表全文 = f.read()
-	旧码表内容 = 旧码表全文[旧码表全文.find("\n...\n") + 5 :]
+if os.path.isfile(单字码表路径):
+	with open(单字码表路径, "r", encoding="utf8") as f:
+		旧码表全文 = f.read()
+		旧码表内容 = 旧码表全文[旧码表全文.find("\n...\n") + 5 :]
 码表.to_csv(单字码表路径, encoding="utf8", index=None, header=False, sep="\t", columns=["单字", "统一小写编码", "词库权重"], lineterminator="\n")
 
 UTC8 = pytz.timezone("Asia/Shanghai")
