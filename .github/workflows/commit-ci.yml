@@ -9,7 +9,12 @@ on:
       - '.github/workflows/**'
   pull_request:
   workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      repository:
+        default: ${{ github.repository }}
+        required: false
+        type: string
 jobs:
   build:
     runs-on: ubuntu-latest
