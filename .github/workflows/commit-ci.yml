@@ -18,7 +18,7 @@ jobs:
       contents: write
     steps:
       - name: 检查分支
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: 安装 Python 3.9
