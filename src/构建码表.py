@@ -504,6 +504,7 @@ def 生成并写入(词库路径, 码表路径, 码表名):
 	with open(码表路径, "w", encoding="utf8") as f:
 		f.write(码表文件头)
 		f.write(新码表内容)
+	print(f"{码表名} 已写入到 {码表路径}")
 
 
 生成并写入("./data/反查词库.csv", f"./{build_path}/ShanRenMaLTS.reverse.dict.yaml", "ShanRenMaLTS.reverse")
