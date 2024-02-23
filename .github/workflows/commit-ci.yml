@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'src/**'
+      - '.github/workflows/**'
   pull_request:
   workflow_dispatch:
 
@@ -59,3 +60,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 自动构建码表
+          commit_author_email: ieksiuze@gmail.com
+          commit_author_name: siuze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
