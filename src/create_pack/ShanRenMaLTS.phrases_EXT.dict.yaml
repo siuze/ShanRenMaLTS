@@ -1,0 +1,19 @@
+### 200万扩充词语表
+### 常用码/特设码全拼编码版本
+### 因为是用于script_translator的码表，长得有点像拼音的音节表
+### 用来实现词汇n+n+n+n任意省略单字编码的输入规则
+---
+name: ShanRenMaLTS.phrases_EXT
+version: "2023.03.07"
+use_preset_vocabulary: false
+sort: by_weight
+columns:
+  - text
+  - code
+  - weight
+import_tables:
+  - ShanRenMaLTS.phrases_EXT01
+  - ShanRenMaLTS.phrases_EXT02
+  - ShanRenMaLTS.phrases_EXT03
+  - ShanRenMaLTS.phrases_EXT04
+...

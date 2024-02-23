@@ -1,13 +1,13 @@
 name: 生成码表
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'src/**'
-      - '.github/workflows/**'
-  pull_request:
+  # push:
+    # branches:
+    #   - master
+    # paths:
+    #   - 'src/**'
+    #   - '.github/workflows/**'
+  # pull_request:
   workflow_dispatch:
 
 jobs:
