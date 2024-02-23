@@ -1,4 +1,5 @@
 import math
+import os
 import re
 from datetime import datetime
 
@@ -489,13 +490,14 @@ def 生成词库编码(词库文件, 码表文件, 写入方式):
 
 def 生成并写入(词库路径, 码表路径, 码表名):
 	旧码表内容 = None  # 不包含文件头
-	with open(码表路径, "r", encoding="utf8") as f:
-		旧码表内容 = f.read()
-		旧码表内容 = 旧码表内容[旧码表内容.find("\n...\n") + 5 :]
 	新码表内容 = 生成词库编码(词库路径, 码表路径, "w+")
-	if 旧码表内容 == 新码表内容:
-		print(f"{码表名} 新旧码表内容相同，不需要更新")
-		return
+	if os.path.isfile(码表路径):
+		with open(码表路径, "r", encoding="utf8") as f:
+			旧码表内容 = f.read()
+			旧码表内容 = 旧码表内容[旧码表内容.find("\n...\n") + 5 :]
+		if 旧码表内容 == 新码表内容:
+			print(f"{码表名} 新旧码表内容相同，不需要更新")
+			return
 	timenow = datetime.now(UTC8)
 	timenow = timenow.strftime("%Y-%m-%d %H:%M:%S")
 	码表文件头 = f'# 山人码LTS词库码表\n# encoding: utf-8\n---\nname: {码表名}\nversion: "{timenow}"\nsort: by_weight\nuse_preset_vocabulary: false\ncolumns:\n  - text #字词\n  - code #编码\n  - weight #权重\n...\n'
@@ -510,3 +512,5 @@ def 生成并写入(词库路径, 码表路径, 码表名):
 生成并写入("./data/扩展词库1.csv", f"./{build_path}/ShanRenMaLTS.phrases_EXT02.dict.yaml", "ShanRenMaLTS.phrases_EXT02")
 生成并写入("./data/扩展词库2.csv", f"./{build_path}/ShanRenMaLTS.phrases_EXT03.dict.yaml", "ShanRenMaLTS.phrases_EXT03")
 生成并写入("./data/扩展词库3.csv", f"./{build_path}/ShanRenMaLTS.phrases_EXT04.dict.yaml", "ShanRenMaLTS.phrases_EXT04")
+生成并写入("./data/扩展词库4.csv", f"./{build_path}/ShanRenMaLTS.phrases_EXT05.dict.yaml", "ShanRenMaLTS.phrases_EXT05")
+生成并写入("./data/扩展词库5.csv", f"./{build_path}/ShanRenMaLTS.phrases_EXT06.dict.yaml", "ShanRenMaLTS.phrases_EXT06")
