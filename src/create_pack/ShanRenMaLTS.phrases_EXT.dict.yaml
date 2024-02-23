@@ -16,4 +16,6 @@ import_tables:
   - ShanRenMaLTS.phrases_EXT02
   - ShanRenMaLTS.phrases_EXT03
   - ShanRenMaLTS.phrases_EXT04
+  - ShanRenMaLTS.phrases_EXT05
+  - ShanRenMaLTS.phrases_EXT06
 ...
