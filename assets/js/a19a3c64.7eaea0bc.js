@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[8054],{2893:e=>{e.exports=JSON.parse('{"label":"\u6350\u8d60","permalink":"/ShanRenMaLTS/blog/tags/\u6350\u8d60","allTagsPath":"/ShanRenMaLTS/blog/tags","count":1,"unlisted":false}')}}]);

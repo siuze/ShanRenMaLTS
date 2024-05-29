@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://siuze.github.io/ShanRenMaLTS/blog</id>
+    <title>山人码LTS Blog</title>
+    <updated>2024-01-18T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://siuze.github.io/ShanRenMaLTS/blog"/>
+    <subtitle>山人码LTS Blog</subtitle>
+    <icon>https://siuze.github.io/ShanRenMaLTS/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[交流社区]]></title>
+        <id>https://siuze.github.io/ShanRenMaLTS/blog/group</id>
+        <link href="https://siuze.github.io/ShanRenMaLTS/blog/group"/>
+        <updated>2024-01-18T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[- ▶ 原版山人码交流QQ群：8330962。]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li>▶ 原版山人码交流QQ群：8330962。<br>
+<!-- -->这是山人全息码创始人谢振斌先生的群，里面存放着大量山人全息码的学习资料和软件。本项目的绝大部分内容都来于此。为山人码码表、方案作出巨大贡献的持双山、五磅兔等前辈也在群中，不过谢先生已久不现身发言了。该群成员上限似乎是500人，已近满群，我在群中并非管理员，因此对入群可能出现的问题无法解答和处理。</li>
+<li>▶ <a href="https://t.me/+o5-kme2JRY4xZDVl" target="_blank" rel="noopener noreferrer"><strong>Telegram交流群</strong></a><br>
+<!-- -->为解决QQ群人数上限问题，我创立了一个Telegram群组，目前还没有人进来，也欢迎加入。</li>
+<li>▶ <a href="https://github.com/siuze/ShanRenMaLTS/discussions" target="_blank" rel="noopener noreferrer"><strong>Github 讨论区（Discussions）</strong></a><br>
+<!-- -->有任何对山人码LTS的设计与使用疑惑，以及任何新想法，都欢迎在项目讨论区发帖子。</li>
+<li>▶ <a href="https://github.com/siuze/ShanRenMaLTS/issues" target="_blank" rel="noopener noreferrer"><strong>Github 议题区（Issues）</strong></a><br>
+<!-- -->有任何山人码LTS项目运行过程中出现的异常，方案、文档中的错误。都欢迎在议题区宣告。</li>
+</ul>]]></content>
+        <author>
+            <name>葉修齊</name>
+            <uri>https://notion.siuze.top</uri>
+        </author>
+        <category label="交流" term="交流"/>
+        <category label="社区" term="社区"/>
+        <category label="群" term="群"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[赞助支持]]></title>
+        <id>https://siuze.github.io/ShanRenMaLTS/blog/donate</id>
+        <link href="https://siuze.github.io/ShanRenMaLTS/blog/donate"/>
+        <updated>2024-01-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[推广]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="推广">推广<a href="https://siuze.github.io/ShanRenMaLTS/blog/donate#%E6%8E%A8%E5%B9%BF" class="hash-link" aria-label="推广的直接链接" title="推广的直接链接">​</a></h2>
+<ul>
+<li>▶ 山人码LTS项目的开发维护者并不鼓励过多的、过分的、可能会对他人造成困扰的推广。</li>
+</ul>
+<blockquote>
+<p>山人码LTS相比过去一些形码具有很多优势，也有不少不足之处。<br>
+<!-- -->形码方案之间当然可以针对某一性能指标进行比较，但是难以全面概括整个方案的学习、使用体验。<br>
+<!-- -->像是凭借某个单一指标的优势去过分贬低其他方案，甚至攻击、嘲讽、诋毁其他方案的使用群体等行为是绝对不可取的。</p>
+</blockquote>
+<ul>
+<li>▶ 如果您愿意，可以以适当的形式，在社交平台上温和地向他人推荐山人码LTS项目。</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="点赞">点赞<a href="https://siuze.github.io/ShanRenMaLTS/blog/donate#%E7%82%B9%E8%B5%9E" class="hash-link" aria-label="点赞的直接链接" title="点赞的直接链接">​</a></h2>
+<ul>
+<li>▶ 您可以为山人码LTS的 <a href="https://github.com/siuze/ShanRenMaLTS" target="_blank" rel="noopener noreferrer">Github项目仓库</a> 点亮星星🌟，这会让开发者感受到鼓励，也可能会让更多人看到这个项目。（开发者本人不会也没有必要通过任何手段刷取点赞数）</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="资助">资助<a href="https://siuze.github.io/ShanRenMaLTS/blog/donate#%E8%B5%84%E5%8A%A9" class="hash-link" aria-label="资助的直接链接" title="资助的直接链接">​</a></h2>
+<ul>
+<li>▶ 直接性的金额资助对于开源项目的是相当有帮助的，开发者能够以最直接的方式感受到他人的赞赏与喜爱，这将成为项目长期维护的动力，同时也能够减轻可能存在的项目运维支出压力（也可能拿来吃点好的减轻开发压力）。</li>
+<li>▶ 收取少量的资助是一种纯粹的个人捐赠行为，并不包含任何商业利益。山人码LTS不会抛弃既往的开源理念，即使在未来可能出现商业使用、闭源服务、版权纠纷等不可抗力因素，山人码LTS也将保证最大限度的开放性，并且尽最大可能不影响过去已开源的所有开发产物的正常使用。</li>
+</ul>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>信息</div><div class="admonitionContent_BuS1"><p><strong>🎉 如果您愿意赞赏本项目，下面是相关的二维码：</strong></p><p><img loading="lazy" alt="收款码" src="https://siuze.github.io/ShanRenMaLTS/assets/images/qrcode-f32203e59482ffc885c219659baeefdd.png" width="3301" height="2306" class="img_ev3q"></p><p>🎉 来款还请备注相关的信息，我们将予以公告和致谢。<br>
+<!-- -->🎉 衷心感谢您对山人码LTS相关项目的支持！</p></div></div>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>赞赏致谢名单</div><div class="admonitionContent_BuS1"><table><thead><tr><th>时间</th><th>姓名</th><th>留言</th></tr></thead><tbody><tr><td>2024-04-13</td><td><a href="https://github.com/cafcacafca" target="_blank" rel="noopener noreferrer">@森森电台</a></td><td></td></tr></tbody></table></div></div>]]></content>
+        <author>
+            <name>葉修齊</name>
+            <uri>https://notion.siuze.top</uri>
+        </author>
+        <category label="赞助" term="赞助"/>
+        <category label="捐赠" term="捐赠"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[测试文章]]></title>
+        <id>https://siuze.github.io/ShanRenMaLTS/blog/welcome</id>
+        <link href="https://siuze.github.io/ShanRenMaLTS/blog/welcome"/>
+        <updated>2023-03-08T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[这是一篇测试文章，这个页面下可能存放一些杂谈文章。]]></summary>
+        <content type="html"><![CDATA[<p>这是一篇测试文章，这个页面下可能存放一些杂谈文章。</p>]]></content>
+        <author>
+            <name>葉修齊</name>
+            <uri>https://notion.siuze.top</uri>
+        </author>
+        <category label="test" term="test"/>
+        <category label="hello" term="hello"/>
+        <category label="docusaurus" term="docusaurus"/>
+    </entry>
+</feed>
