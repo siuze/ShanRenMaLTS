@@ -126,7 +126,7 @@ FengRuSong_style:
     comment_text_color: 0x85AE2B
     comment_back_color: 0x00f9f9f9
     text_color: 0x1a1a1a
-    back_color: 0x3ff9f9f9
+    back_color: 0xdff9f9f9
     border_color:  0x1f9f9f9f
     hilited_text_color: 0xCC99C832
     hilited_back_color: 0x00ffffff
