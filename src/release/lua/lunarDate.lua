@@ -214,9 +214,9 @@ local function GettotalDay(Date,dayCount)
 		for i=Month,12+Month do
 			if IsLeap(Year)>365 then days={31,29,31,30,31,30,31,31,30,31,30,31}
 			else days={31,28,31,30,31,30,31,31,30,31,30,31} end
-			if i>11 then t=i-12 else t=i end
+			if i>12 then t=i-12 else t=i end
 			--print("<" ..i ..">" ..days[t+1] .. "-".. t+1)
-			if (total>days[t+1]) then
+			if (total>days[t]) then
 				total=total-days[Month]
 				Month=Month+1
 				if Month>12 then Month=Month-12 Year=Year+1 end
@@ -229,8 +229,8 @@ local function GettotalDay(Date,dayCount)
 	else
 		total=Day+dayCount
 	end
-	--if string.len(Month)==1 then Month="0"..Month end
-	--if string.len(total)==1 then total="0"..total end
+	if string.len(Month)==1 then Month="0"..Month end
+	if string.len(total)==1 then total="0"..total end
 	return Year .. "年" .. Month .. "月" .. total .. "日"
 end
 
