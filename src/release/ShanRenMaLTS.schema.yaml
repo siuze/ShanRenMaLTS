@@ -4,14 +4,14 @@
 schema:
   schema_id: ShanRenMaLTS
   name: 山人码LTS
-  version: "2024.02.19"
+  version: "2024.06.09"
   author:
     - 方案原作 谢振斌
     - 方案定制 葉修齊（siuze）
     - 方案参考：持双山 疏影孤桐 五磅兔 张仓 等前辈
   description:
     - 山人码LTS是山人全息码输入方案的长期支持版
-    - 码表覆盖unicode 15.0 所有汉字（9万字左右）
+    - 码表覆盖Unicode 15.1 所有汉字（10万余字）
     - 包含百万词句以及英文单词词库
     - 访问 https://siuze.github.io/ShanRenMaLTS/ 以获取使用指南
   dependencies: #依赖袖珍简化字拼音进行反查，袖珍简化字拼音在rime的win发行版小狼毫下是自带的
